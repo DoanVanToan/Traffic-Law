@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+
+def APP_ID = "toandoan.framgia.com.rxjavaretrofit";
+
+android {
+  compileSdkVersion 25
+  buildToolsVersion "25.0.2"
+  defaultConfig {
+    applicationId "${APP_ID}"
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
+    versionCode rootProject.ext.versionCode
+    versionName rootProject.ext.versionName
+
+    vectorDrawables.useSupportLibrary = true
+  }
+
+  dataBinding {
+    enabled = true
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+}
+
+
+dependencies {
+  compile fileTree(include: ['*.jar'], dir: 'libs')
+  Map<String, String> dependencies = rootProject.ext.dependencies;
+
+  compile dependencies.supportDesign
+  compile dependencies.constraintLayout
+  compile dependencies.cardView
+
+  compile dependencies.rxJava
+  compile dependencies.rxAndroid
+
+  compile dependencies.retrofit2
+  compile dependencies.retrofit2Adapter
+  compile dependencies.retrofitGson
+  compile dependencies.loggingInterceptor
+  compile dependencies.glide
+
+  testCompile dependencies.junit
+  testCompile dependencies.mockito
+
+  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    exclude group: 'com.android.support', module: 'support-annotations'
+  })
+  compile 'com.android.support.constraint:constraint-layout:1.0.1'
+}
