@@ -1,7 +1,15 @@
 *.iml
 .gradle
+<<<<<<< HEAD
+=======
+/.idea
+>>>>>>> a3a4b35fa4ebc5b47e467d9951fd2fac8a6a59b2
 /local.properties
 .DS_Store
 /build
 /captures
+<<<<<<< HEAD
 /.idea/
+=======
+.externalNativeBuild
+>>>>>>> a3a4b35fa4ebc5b47e467d9951fd2fac8a6a59b2
