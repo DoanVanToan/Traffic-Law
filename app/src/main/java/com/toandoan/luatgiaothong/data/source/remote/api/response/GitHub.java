@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.response;
+package com.toandoan.luatgiaothong.data.source.remote.api.response;
 
 import com.google.gson.annotations.SerializedName;
 

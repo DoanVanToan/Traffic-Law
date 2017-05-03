@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.data.source.local.realm;
+package com.toandoan.luatgiaothong.data.source.local.realm;
 
 import io.realm.Realm;
 import rx.Observable;

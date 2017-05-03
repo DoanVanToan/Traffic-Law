@@ -1,6 +1,6 @@
-package com.toandoan.luatgiaothong.data.source.local;
+package toandoan.framgia.com.rxjavaretrofit.data.source.local;
 
-import com.toandoan.luatgiaothong.data.source.local.realm.RealmApi;
+import toandoan.framgia.com.rxjavaretrofit.data.source.local.realm.RealmApi;
 
 /**
  *

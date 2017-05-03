@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit;
+package com.toandoan.luatgiaothong;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("toandoan.framgia.com.rxjavaretrofit", appContext.getPackageName());
+        assertEquals("com.toandoan.luatgiaothong", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.middleware;
+package com.toandoan.luatgiaothong.data.source.remote.api.middleware;
 
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,8 +14,8 @@ import retrofit2.adapter.rxjava.HttpException;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import rx.Observable;
 import rx.functions.Func1;
-import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.error.BaseException;
-import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.response.ErrorResponse;
+import com.toandoan.luatgiaothong.data.source.remote.api.error.BaseException;
+import com.toandoan.luatgiaothong.data.source.remote.api.response.ErrorResponse;
 
 /**
  * ErrorHandling:

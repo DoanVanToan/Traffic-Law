@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.data.model;
+package com.toandoan.luatgiaothong.data.model;
 
 import com.google.gson.Gson;
 

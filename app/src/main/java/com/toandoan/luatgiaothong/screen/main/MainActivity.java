@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.screen.main;
+package com.toandoan.luatgiaothong.screen.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,10 +12,10 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 import rx.subscriptions.CompositeSubscription;
-import toandoan.framgia.com.rxjavaretrofit.R;
-import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.AuthenicationRemoteDataSource;
-import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.response.GitHub;
-import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.service.AppServiceClient;
+import com.toandoan.luatgiaothong.R;
+import com.toandoan.luatgiaothong.data.source.remote.api.AuthenicationRemoteDataSource;
+import com.toandoan.luatgiaothong.data.source.remote.api.response.GitHub;
+import com.toandoan.luatgiaothong.data.source.remote.api.service.AppServiceClient;
 
 public class MainActivity extends AppCompatActivity {
 

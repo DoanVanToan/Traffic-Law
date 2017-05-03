@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.utils.navigator;
+package com.toandoan.luatgiaothong.utils.navigator;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.Toast;
-import toandoan.framgia.com.rxjavaretrofit.R;
+import com.toandoan.luatgiaothong.R;
 
 /**
  *

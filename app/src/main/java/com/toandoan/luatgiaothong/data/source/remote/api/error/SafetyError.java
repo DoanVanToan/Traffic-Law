@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.error;
+package com.toandoan.luatgiaothong.data.source.remote.api.error;
 
 import rx.functions.Action1;
 

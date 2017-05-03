@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.data.source.local.sharedprf;
+package com.toandoan.luatgiaothong.data.source.local.sharedprf;
 
 /**
  *

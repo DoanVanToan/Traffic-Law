@@ -1,10 +1,10 @@
-package toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.middleware;
+package com.toandoan.luatgiaothong.data.source.remote.api.middleware;
 
 import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-import toandoan.framgia.com.rxjavaretrofit.data.model.User;
+import com.toandoan.luatgiaothong.data.model.User;
 
 /**
  *

@@ -1,11 +1,11 @@
-package toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.error;
+package com.toandoan.luatgiaothong.data.source.remote.api.error;
 
 import android.support.annotation.Nullable;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import retrofit2.Response;
-import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.response.ErrorResponse;
+import com.toandoan.luatgiaothong.data.source.remote.api.response.ErrorResponse;
 
 /**
  *

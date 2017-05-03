@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.utils.binding;
+package com.toandoan.luatgiaothong.utils.binding;
 
 import android.databinding.BindingAdapter;
 import android.support.design.widget.TabLayout;
@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
-import toandoan.framgia.com.rxjavaretrofit.R;
+import com.toandoan.luatgiaothong.R;
 
 /**
  *

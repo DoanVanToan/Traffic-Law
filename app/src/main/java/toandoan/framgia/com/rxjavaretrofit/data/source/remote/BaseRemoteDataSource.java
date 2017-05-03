@@ -1,6 +1,6 @@
-package com.toandoan.luatgiaothong.data.source.remote;
+package toandoan.framgia.com.rxjavaretrofit.data.source.remote;
 
-import com.toandoan.luatgiaothong.data.source.remote.api.service.AppApi;
+import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.service.AppApi;
 
 /**
  *

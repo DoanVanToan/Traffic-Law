@@ -1,10 +1,10 @@
-package toandoan.framgia.com.rxjavaretrofit;
+package com.toandoan.luatgiaothong;
 
 import android.app.Application;
+import com.toandoan.luatgiaothong.data.source.local.realm.DataLocalMigration;
+import com.toandoan.luatgiaothong.data.source.remote.api.service.AppServiceClient;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import toandoan.framgia.com.rxjavaretrofit.data.source.local.realm.DataLocalMigration;
-import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.service.AppServiceClient;
 
 /**
  *

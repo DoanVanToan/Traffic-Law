@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.adapter;
+package com.toandoan.luatgiaothong.data.source.remote.api.adapter;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;

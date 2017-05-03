@@ -1,9 +1,9 @@
-package toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.service;
+package com.toandoan.luatgiaothong.data.source.remote.api.service;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
-import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.middleware.RetrofitInterceptor;
-import toandoan.framgia.com.rxjavaretrofit.utils.Constant;
+import com.toandoan.luatgiaothong.data.source.remote.api.middleware.RetrofitInterceptor;
+import com.toandoan.luatgiaothong.utils.Constant;
 
 /**
  *

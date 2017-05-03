@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="toandoan.framgia.com.rxjavaretrofit.screen.main.MainActivity"
+    tools:context="com.toandoan.luatgiaothong.screen.main.MainActivity"
     >
 
     <FrameLayout

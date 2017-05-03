@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.utils.binding;
+package com.toandoan.luatgiaothong.utils.binding;
 
 import android.support.annotation.IntDef;
 import android.support.v7.widget.GridLayoutManager;

@@ -1,4 +1,4 @@
-package toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.service;
+package com.toandoan.luatgiaothong.data.source.remote.api.service;
 
 import android.app.Application;
 import android.support.annotation.NonNull;
@@ -14,10 +14,10 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import toandoan.framgia.com.rxjavaretrofit.BuildConfig;
-import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.adapter.BooleanAdapter;
-import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.adapter.IntegerAdapter;
-import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.middleware.RxErrorHandlingCallAdapterFactory;
+import com.toandoan.luatgiaothong.BuildConfig;
+import com.toandoan.luatgiaothong.data.source.remote.api.adapter.BooleanAdapter;
+import com.toandoan.luatgiaothong.data.source.remote.api.adapter.IntegerAdapter;
+import com.toandoan.luatgiaothong.data.source.remote.api.middleware.RxErrorHandlingCallAdapterFactory;
 
 /**
  *
