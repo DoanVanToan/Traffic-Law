@@ -3,7 +3,7 @@ package toandoan.framgia.com.rxjavaretrofit.data.model;
 import com.google.gson.Gson;
 
 /**
- * Created by le.quang.dao on 16/03/2017.
+ *
  */
 
 public abstract class BaseModel implements Cloneable {

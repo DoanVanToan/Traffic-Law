@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import toandoan.framgia.com.rxjavaretrofit.R;
 
 /**
- * Created by le.quang.dao on 20/03/2017.
+ *
  */
 
 public final class BindingUtils {

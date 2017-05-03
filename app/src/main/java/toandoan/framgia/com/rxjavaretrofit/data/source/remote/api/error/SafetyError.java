@@ -3,7 +3,7 @@ package toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.error;
 import rx.functions.Action1;
 
 /**
- * Created by Sun on 4/16/2017.
+ *
  */
 
 public abstract class SafetyError implements Action1<Throwable> {

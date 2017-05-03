@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * Created by le.quang.dao on 14/03/2017.
+ *
  */
 
 public class SharedPrefsImpl implements SharedPrefsApi {

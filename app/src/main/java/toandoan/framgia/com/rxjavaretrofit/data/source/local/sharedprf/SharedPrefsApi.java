@@ -1,7 +1,7 @@
 package toandoan.framgia.com.rxjavaretrofit.data.source.local.sharedprf;
 
 /**
- * Created by le.quang.dao on 14/03/2017.
+ *
  */
 
 public interface SharedPrefsApi {

@@ -7,7 +7,7 @@ import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.response.GitHu
 import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.service.AppApi;
 
 /**
- * Created by framgia on 18/04/2017.
+ *
  */
 
 public class AuthenicationRemoteDataSource extends BaseRemoteDataSource

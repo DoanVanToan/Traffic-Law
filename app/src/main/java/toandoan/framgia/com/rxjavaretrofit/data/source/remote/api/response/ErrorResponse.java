@@ -3,7 +3,7 @@ package toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.response;
 import com.google.gson.annotations.Expose;
 
 /**
- * Created by Sun on 4/16/2017.
+ *
  */
 
 public class ErrorResponse extends BaseRespone {

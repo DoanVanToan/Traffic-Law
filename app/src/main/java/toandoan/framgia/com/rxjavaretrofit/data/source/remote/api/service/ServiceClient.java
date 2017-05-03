@@ -20,7 +20,7 @@ import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.adapter.Intege
 import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.middleware.RxErrorHandlingCallAdapterFactory;
 
 /**
- * Created by le.quang.dao on 10/03/2017.
+ *
  */
 
 public class ServiceClient {

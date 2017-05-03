@@ -7,7 +7,7 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * Created by le.quang.dao on 10/03/2017.
+ *
  */
 
 public class BooleanAdapter extends TypeAdapter<Boolean> {

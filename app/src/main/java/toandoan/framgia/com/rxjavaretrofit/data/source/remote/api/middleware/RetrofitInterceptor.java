@@ -7,7 +7,7 @@ import okhttp3.Response;
 import toandoan.framgia.com.rxjavaretrofit.data.model.User;
 
 /**
- * Created by Sun on 4/16/2017.
+ *
  */
 
 public class RetrofitInterceptor implements Interceptor {

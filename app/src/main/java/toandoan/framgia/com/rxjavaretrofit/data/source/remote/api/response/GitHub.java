@@ -3,7 +3,7 @@ package toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.response;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by framgia on 18/04/2017.
+ *
  */
 
 public class GitHub {

@@ -7,7 +7,7 @@ import toandoan.framgia.com.rxjavaretrofit.data.source.local.realm.DataLocalMigr
 import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.service.AppServiceClient;
 
 /**
- * Created by framgia on 18/04/2017.
+ *
  */
 
 public class AppApplication extends Application {

@@ -6,7 +6,7 @@ import rx.Observable;
 import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.response.GitHub;
 
 /**
- * Created by le.quang.dao on 10/03/2017.
+ *
  */
 
 public interface AppApi {

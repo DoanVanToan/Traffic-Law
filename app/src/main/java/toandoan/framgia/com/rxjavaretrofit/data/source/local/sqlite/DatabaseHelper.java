@@ -5,11 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
- * Created by framgia on 18/04/2017.
+ *
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-
 
     public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory,
             int version) {

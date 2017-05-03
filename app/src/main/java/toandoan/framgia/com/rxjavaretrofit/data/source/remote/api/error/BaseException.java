@@ -8,7 +8,7 @@ import retrofit2.Response;
 import toandoan.framgia.com.rxjavaretrofit.data.source.remote.api.response.ErrorResponse;
 
 /**
- * Created by le.quang.dao on 10/03/2017.
+ *
  */
 
 public final class BaseException extends RuntimeException {
