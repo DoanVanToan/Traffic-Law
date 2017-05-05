@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "969550739951",
+    "firebase_url": "https://traffic-law.firebaseio.com",
+    "project_id": "traffic-law",
+    "storage_bucket": "traffic-law.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:969550739951:android:6c6e5eb1a7e3a4be",
+        "android_client_info": {
+          "package_name": "com.toandoan.luatgiaothong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "969550739951-2oalh26s88h4ish8paem17v8lf6idj1l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.toandoan.luatgiaothong",
+            "certificate_hash": "915a87405c4249f7d617b643f9221170b81dfcb0"
+          }
+        },
+        {
+          "client_id": "969550739951-1li6uhcv2i6gl4o164p5ru5ah41d1oae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6-akaSQE3xtuZvs6-is522zqKTn2brnE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "969550739951-1li6uhcv2i6gl4o164p5ru5ah41d1oae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
