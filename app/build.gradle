@@ -46,6 +46,7 @@ dependencies {
   compile dependencies.retrofitGson
   compile dependencies.loggingInterceptor
   compile dependencies.glide
+  compile dependencies.firebase
 
   testCompile dependencies.junit
   testCompile dependencies.mockito
