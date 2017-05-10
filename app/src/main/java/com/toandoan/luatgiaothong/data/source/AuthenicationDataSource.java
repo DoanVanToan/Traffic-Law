@@ -1,6 +1,6 @@
 package com.toandoan.luatgiaothong.data.source;
 
-import com.toandoan.luatgiaothong.data.source.remote.api.response.GitHub;
+import com.google.firebase.auth.FirebaseUser;
 import rx.Observable;
 
 /**
@@ -8,5 +8,11 @@ import rx.Observable;
  */
 
 public interface AuthenicationDataSource {
-    Observable<GitHub> login(String login);
+    interface RemoteDataSource {
+        Observable<FirebaseUser> register(String email, String password);
+
+        Observable<FirebaseUser> login(String email, String password);
+
+        Observable<FirebaseUser> getCurrentUser();
+    }
 }
