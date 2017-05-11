@@ -2,7 +2,6 @@ package com.toandoan.luatgiaothong.data.source;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
-import rx.Observable;
 
 /**
  * Created by framgia on 10/05/2017.
@@ -20,10 +19,14 @@ public class AuthenicationRepository {
     }
 
     public void login(String email, String password,DataCallback<FirebaseUser> callback) {
-        mRemoteDataSource.login(email, password, callback);
+        mRemoteDataSource.signIn(email, password, callback);
     }
 
     public void getCurrentUser(DataCallback<FirebaseUser> callback) {
         mRemoteDataSource.getCurrentUser(callback);
+    }
+
+    public void signOut(DataCallback callback){
+        mRemoteDataSource.signOut(callback);
     }
 }

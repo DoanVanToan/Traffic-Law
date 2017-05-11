@@ -7,6 +7,8 @@ import android.databinding.Bindable;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.R;
+import com.toandoan.luatgiaothong.screen.forgotPassword.ForgotPasswordActivity;
+import com.toandoan.luatgiaothong.screen.main.MainActivity;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
 /**
@@ -50,7 +52,7 @@ public class RegisterViewModel extends BaseObservable implements RegisterContrac
 
     @Override
     public void onRegisterSuccess(FirebaseUser user) {
-        mNavigator.showToast(user.getDisplayName());
+        mNavigator.startActivity(MainActivity.getInstance(mContext));
     }
 
     @Override
@@ -95,6 +97,17 @@ public class RegisterViewModel extends BaseObservable implements RegisterContrac
         if (mDialog != null) {
             mDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onForgotPwClick() {
+        mNavigator.finishActivity();
+        mNavigator.startActivity(ForgotPasswordActivity.getInstance(mContext));
+    }
+
+    @Override
+    public void onLoginClick() {
+        mNavigator.finishActivity();
     }
 
     @Bindable

@@ -17,4 +17,10 @@
     <string name="empty_password_confirm_incorrect">Password confirm is incorrect</string>
     <string name="msg_pls_register">Register account....</string>
     <string name="msg_loading">Loading...</string>
+    <string name="hint_email">Email</string>
+    <string name="title_forgot_pasword">Forgot password?</string>
+    <string name="forgot_pasword_description">We just need your register Email Id to send your password reset instructions.</string>
+    <string name="action_reset_password">Reset password</string>
+    <string name="action_back"><![CDATA[<< Back]]></string>
+
 </resources>

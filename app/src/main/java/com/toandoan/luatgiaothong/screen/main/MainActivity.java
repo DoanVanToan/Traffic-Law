@@ -9,7 +9,9 @@ import com.toandoan.luatgiaothong.R;
 public class MainActivity extends AppCompatActivity {
 
     public static Intent getInstance(Context context) {
-        return new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return intent;
     }
 
     @Override

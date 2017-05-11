@@ -7,6 +7,7 @@ import android.databinding.Bindable;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.R;
+import com.toandoan.luatgiaothong.screen.forgotPassword.ForgotPasswordActivity;
 import com.toandoan.luatgiaothong.screen.main.MainActivity;
 import com.toandoan.luatgiaothong.screen.register.RegisterActivity;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
@@ -67,11 +68,6 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     }
 
     @Override
-    public void onGetUserError(String message) {
-        mNavigator.showToast(message);
-    }
-
-    @Override
     public void onGetCurrentUserError(String message) {
         mNavigator.showToast(message);
     }
@@ -90,6 +86,11 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onLoginClick() {
         mPresenter.login(mEmail, mPassword);
+    }
+
+    @Override
+    public void onForgotPasswordClick() {
+        mNavigator.startActivity(ForgotPasswordActivity.getInstance(mContext));
     }
 
     @Override

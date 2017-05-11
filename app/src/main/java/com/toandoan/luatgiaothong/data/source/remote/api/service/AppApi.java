@@ -10,6 +10,6 @@ import com.toandoan.luatgiaothong.data.source.remote.api.response.GitHub;
  */
 
 public interface AppApi {
-    @GET("/users/{login}")
-    Observable<GitHub> getUser(@Path("login") String login);
+    @GET("/users/{signIn}")
+    Observable<GitHub> getUser(@Path("signIn") String login);
 }
