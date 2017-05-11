@@ -24,5 +24,10 @@
     <string name="action_back"><![CDATA[<< Back]]></string>
     <string name="msg_reset_password_success">Reset password succesful, pls check your email to get a new password.</string>
     <string name="action_signout">Sign out</string>
+    <string name="action_save">Save</string>
+    <string name="title_upload">Select avatar</string>
+    <string name="empty_user_name">User name not be empty!</string>
+    <string name="title_welcome">Welcome</string>
+    <string name="title_edit">Pls enter your name and your photo to finish register account!</string>
 
 </resources>

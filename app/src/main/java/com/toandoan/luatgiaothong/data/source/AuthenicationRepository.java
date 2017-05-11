@@ -1,5 +1,6 @@
 package com.toandoan.luatgiaothong.data.source;
 
+import android.net.Uri;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 
@@ -32,5 +33,9 @@ public class AuthenicationRepository {
 
     public void resetPassword(String email, DataCallback callback) {
         mRemoteDataSource.resetPassword(email, callback);
+    }
+
+    public void updateProfile(String userName, Uri photo, DataCallback callback) {
+        mRemoteDataSource.updateProfile(userName, photo, callback);
     }
 }

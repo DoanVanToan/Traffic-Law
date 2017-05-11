@@ -3,6 +3,7 @@ package com.toandoan.luatgiaothong.screen.main;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.net.Uri;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.screen.login.LoginActivity;
@@ -19,6 +20,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     private Context mContext;
 
     private String mUserEmail;
+    private Uri mUserPhoto;
 
     public MainViewModel(Context context, Navigator navigator) {
         mContext = context;
@@ -43,6 +45,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     @Override
     public void onGetCurrentUserSuccess(FirebaseUser data) {
         setUserEmail(data.getEmail());
+        setUserPhoto(data.getPhotoUrl());
     }
 
     @Override
@@ -68,5 +71,15 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     public void setUserEmail(String userEmail) {
         mUserEmail = userEmail;
         notifyPropertyChanged(BR.userEmail);
+    }
+
+    @Bindable
+    public Uri getUserPhoto() {
+        return mUserPhoto;
+    }
+
+    public void setUserPhoto(Uri userPhoto) {
+        mUserPhoto = userPhoto;
+        notifyPropertyChanged(BR.userPhoto);
     }
 }

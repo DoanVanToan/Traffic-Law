@@ -4,9 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.text.TextUtils;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.R;
+import com.toandoan.luatgiaothong.screen.editProfile.EditProfileActivity;
 import com.toandoan.luatgiaothong.screen.forgotPassword.ForgotPasswordActivity;
 import com.toandoan.luatgiaothong.screen.main.MainActivity;
 import com.toandoan.luatgiaothong.screen.register.RegisterActivity;
@@ -75,7 +77,11 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onGetUserSuccessful(FirebaseUser firebaseUser) {
         mNavigator.finishActivity();
-        mNavigator.startActivity(MainActivity.getInstance(mContext));
+        if (!TextUtils.isEmpty(firebaseUser.getDisplayName())) {
+            mNavigator.startActivity(MainActivity.getInstance(mContext));
+        } else {
+            mNavigator.startActivity(EditProfileActivity.getInstance(mContext));
+        }
     }
 
     @Override
