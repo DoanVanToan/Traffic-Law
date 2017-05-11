@@ -70,6 +70,27 @@ public class AuthenicationRemoteDataSource extends BaseRemoteDataSource
         callback.onGetDataSuccess(null);
     }
 
+    @Override
+    public void resetPassword(String email, final DataCallback callback) {
+        mFirebaseAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            callback.onGetDataSuccess(null);
+                        } else {
+                            callback.onGetDataFailed(task.getException().getMessage());
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onGetDataFailed(e.getMessage());
+                    }
+                });
+    }
+
     private void getResponse(Task<AuthResult> authResultTask, DataCallback callback) {
         if (authResultTask == null) {
             callback.onGetDataFailed(null);

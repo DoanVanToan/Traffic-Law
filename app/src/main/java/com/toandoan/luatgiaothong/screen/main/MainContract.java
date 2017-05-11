@@ -1,31 +1,30 @@
-package com.toandoan.luatgiaothong.screen.forgotPassword;
+package com.toandoan.luatgiaothong.screen.main;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BasePresenter;
 import com.toandoan.luatgiaothong.BaseViewModel;
 
 /**
  * This specifies the contract between the view and the presenter.
  */
-interface ForgotPasswordContract {
+interface MainContract {
     /**
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
-        void onResetPasswodClick();
+        void onGetCurrentUserSuccess(FirebaseUser data);
         
-        void onBackClick();
+        void onSignOutClick();
 
-        void onEmailEmpty();
+        void onSignOutSuccess();
 
-        void onResetPasswordSuccess();
-
-        void onResetPasswordFailed(String msg);
+        void onSignOutFailed(String msg);
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void resetPassword(String email);
+        void signOut();
     }
 }

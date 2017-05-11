@@ -4,8 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import com.google.firebase.auth.FirebaseAuth;
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
+import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
+import com.toandoan.luatgiaothong.data.source.remote.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.databinding.ActivityForgotPasswordBinding;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
@@ -24,9 +27,12 @@ public class ForgotPasswordActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mViewModel = new ForgotPasswordViewModel(new Navigator(this));
+        mViewModel = new ForgotPasswordViewModel(this, new Navigator(this));
+        AuthenicationRepository repository = new AuthenicationRepository(
+                new AuthenicationRemoteDataSource(FirebaseAuth.getInstance()));
 
-        ForgotPasswordContract.Presenter presenter = new ForgotPasswordPresenter(mViewModel);
+        ForgotPasswordContract.Presenter presenter =
+                new ForgotPasswordPresenter(mViewModel, repository);
         mViewModel.setPresenter(presenter);
 
         ActivityForgotPasswordBinding binding =

@@ -1,5 +1,6 @@
 package com.toandoan.luatgiaothong.screen.forgotPassword;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import com.toandoan.luatgiaothong.BR;
@@ -16,8 +17,10 @@ public class ForgotPasswordViewModel extends BaseObservable
     private ForgotPasswordContract.Presenter mPresenter;
     private String mEmail;
     private Navigator mNavigator;
+    private Context mContext;
 
-    public ForgotPasswordViewModel(Navigator navigator) {
+    public ForgotPasswordViewModel(Context context, Navigator navigator) {
+        mContext = context;
         mNavigator = navigator;
     }
 
@@ -49,6 +52,16 @@ public class ForgotPasswordViewModel extends BaseObservable
     @Override
     public void onEmailEmpty() {
         mNavigator.showToast(R.string.empty_email);
+    }
+
+    @Override
+    public void onResetPasswordSuccess() {
+        mNavigator.showToast(mContext.getString(R.string.msg_reset_password_success));
+    }
+
+    @Override
+    public void onResetPasswordFailed(String msg) {
+        mNavigator.showToast(msg);
     }
 
     @Bindable
