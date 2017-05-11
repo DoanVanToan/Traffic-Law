@@ -1,7 +1,7 @@
 package com.toandoan.luatgiaothong.data.source;
 
 import com.google.firebase.auth.FirebaseUser;
-import rx.Observable;
+import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 
 /**
  *
@@ -9,10 +9,10 @@ import rx.Observable;
 
 public interface AuthenicationDataSource {
     interface RemoteDataSource {
-        Observable<FirebaseUser> register(String email, String password);
+        void register(String email, String password, DataCallback<FirebaseUser> callBack);
 
-        Observable<FirebaseUser> login(String email, String password);
+        void login(String email, String password, DataCallback<FirebaseUser> callBack);
 
-        Observable<FirebaseUser> getCurrentUser();
+        void getCurrentUser(DataCallback<FirebaseUser> callBack);
     }
 }

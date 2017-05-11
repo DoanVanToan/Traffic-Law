@@ -3,12 +3,7 @@ package com.toandoan.luatgiaothong.screen.register;
 import android.text.TextUtils;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action0;
-import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
+import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 
 /**
  * Listens to user actions from the UI ({@link RegisterActivity}), retrieves the data and updates
@@ -18,13 +13,11 @@ final class RegisterPresenter implements RegisterContract.Presenter {
 
     private final RegisterContract.ViewModel mViewModel;
     private AuthenicationRepository mRepository;
-    private CompositeSubscription mSubscription;
 
     public RegisterPresenter(RegisterContract.ViewModel viewModel,
             AuthenicationRepository repository) {
         mViewModel = viewModel;
         mRepository = repository;
-        mSubscription = new CompositeSubscription();
     }
 
     @Override
@@ -33,7 +26,6 @@ final class RegisterPresenter implements RegisterContract.Presenter {
 
     @Override
     public void onStop() {
-        mSubscription.clear();
     }
 
     @Override
@@ -58,38 +50,20 @@ final class RegisterPresenter implements RegisterContract.Presenter {
             return;
         }
 
-        Subscription subscription = mRepository.register(email, password)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnUnsubscribe(new Action0() {
-                    @Override
-                    public void call() {
-                        mViewModel.showProgressDialog();
-                    }
-                })
-                .subscribe(new Subscriber<FirebaseUser>() {
-                    @Override
-                    public void onCompleted() {
-                        mViewModel.dismissDialog();
-                    }
+        mViewModel.showProgressDialog();
+        mRepository.register(email, password, new DataCallback<FirebaseUser>() {
+            @Override
+            public void onGetDataSuccess(FirebaseUser data) {
+                mViewModel.dismissDialog();
+                mViewModel.onRegisterSuccess(data);
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mViewModel.onRegisterFailed(e.getMessage());
-                        mViewModel.dismissDialog();
-                    }
-
-                    @Override
-                    public void onNext(FirebaseUser firebaseUser) {
-                        if (firebaseUser != null) {
-                            mViewModel.onRegisterSuccess(firebaseUser);
-                        } else {
-                            mViewModel.onRegisterFailed(null);
-                        }
-                    }
-                });
-
-        mSubscription.add(subscription);
+            @Override
+            public void onGetDataFailed(String msg) {
+                mViewModel.dismissDialog();
+                mViewModel.onRegisterFailed(msg);
+            }
+        });
     }
 }
 

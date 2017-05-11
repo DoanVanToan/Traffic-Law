@@ -146,6 +146,8 @@ public class Navigator {
     }
 
     public void showToast(String message) {
-        Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
+        if (message != null) {
+            Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
+        }
     }
 }

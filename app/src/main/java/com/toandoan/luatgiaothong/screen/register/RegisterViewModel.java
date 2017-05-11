@@ -92,7 +92,7 @@ public class RegisterViewModel extends BaseObservable implements RegisterContrac
 
     @Override
     public void dismissDialog() {
-        if (mDialog != null && mDialog.isShowing()) {
+        if (mDialog != null) {
             mDialog.dismiss();
         }
     }
