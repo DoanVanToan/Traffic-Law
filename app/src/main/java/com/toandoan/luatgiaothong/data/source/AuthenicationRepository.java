@@ -18,7 +18,7 @@ public class AuthenicationRepository {
         mRemoteDataSource.register(email, password, callback);
     }
 
-    public void login(String email, String password,DataCallback<FirebaseUser> callback) {
+    public void login(String email, String password, DataCallback<FirebaseUser> callback) {
         mRemoteDataSource.signIn(email, password, callback);
     }
 
@@ -26,7 +26,11 @@ public class AuthenicationRepository {
         mRemoteDataSource.getCurrentUser(callback);
     }
 
-    public void signOut(DataCallback callback){
+    public void signOut(DataCallback callback) {
         mRemoteDataSource.signOut(callback);
+    }
+
+    public void resetPassword(String email, DataCallback callback) {
+        mRemoteDataSource.resetPassword(email, callback);
     }
 }

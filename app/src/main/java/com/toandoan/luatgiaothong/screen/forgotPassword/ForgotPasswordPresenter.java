@@ -1,6 +1,8 @@
 package com.toandoan.luatgiaothong.screen.forgotPassword;
 
 import android.text.TextUtils;
+import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
+import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 
 /**
  * Listens to user actions from the UI ({@link ForgotPasswordActivity}), retrieves the data and
@@ -11,9 +13,12 @@ final class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter 
     private static final String TAG = ForgotPasswordPresenter.class.getName();
 
     private final ForgotPasswordContract.ViewModel mViewModel;
+    private AuthenicationRepository mRepository;
 
-    public ForgotPasswordPresenter(ForgotPasswordContract.ViewModel viewModel) {
+    public ForgotPasswordPresenter(ForgotPasswordContract.ViewModel viewModel,
+            AuthenicationRepository repository) {
         mViewModel = viewModel;
+        mRepository = repository;
     }
 
     @Override
@@ -26,9 +31,20 @@ final class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter 
 
     @Override
     public void resetPassword(String email) {
-        if (TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             mViewModel.onEmailEmpty();
             return;
         }
+        mRepository.resetPassword(email, new DataCallback() {
+            @Override
+            public void onGetDataSuccess(Object data) {
+                mViewModel.onResetPasswordSuccess();
+            }
+
+            @Override
+            public void onGetDataFailed(String msg) {
+                mViewModel.onResetPasswordFailed(msg);
+            }
+        });
     }
 }

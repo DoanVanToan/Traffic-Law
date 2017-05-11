@@ -1,5 +1,6 @@
 package com.toandoan.luatgiaothong.data.source;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 
@@ -16,5 +17,7 @@ public interface AuthenicationDataSource {
         void getCurrentUser(DataCallback<FirebaseUser> callBack);
 
         void signOut(DataCallback<FirebaseUser> callback);
+
+        void resetPassword(String email, DataCallback callback);
     }
 }
