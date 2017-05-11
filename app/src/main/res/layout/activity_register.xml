@@ -66,6 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_20"
                     android:hint="@string/password"
+                    android:inputType="textPassword"
                     android:padding="@dimen/dp_10"
                     android:shadowColor="@android:color/white"
                     android:text="@={viewModel.password}"
@@ -86,6 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_20"
                     android:hint="@string/confirrm_password"
+                    android:inputType="textPassword"
                     android:padding="@dimen/dp_10"
                     android:shadowColor="@android:color/white"
                     android:text="@={viewModel.passwordConfirm}"
@@ -104,8 +106,8 @@
                 android:layout_marginTop="@dimen/dp_10"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:color="@color/colorPrimary"
-                android:text="@string/action_register"
                 android:onClick="@{() -> viewModel.onRegisterClick()}"
+                android:text="@string/action_register"
                 android:textColor="@android:color/white"
                 />
 
@@ -114,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@null"
+                android:onClick="@{() -> viewModel.onForgotPwClick()}"
                 android:text="@string/forgot_password"
                 android:textAllCaps="false"
                 android:textColor="@android:color/holo_orange_dark"
@@ -122,6 +125,7 @@
             <android.support.v7.widget.AppCompatButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onLoginClick()}"
                 android:layout_marginTop="@dimen/dp_10"
                 android:background="@null"
                 android:text="@string/title_login"

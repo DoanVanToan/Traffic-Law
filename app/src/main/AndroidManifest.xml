@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".screen.main.MainActivity"/>
-
         <activity
             android:name=".screen.login.LoginActivity"
             android:screenOrientation="portrait">
@@ -23,9 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
+        <activity android:name=".screen.register.RegisterActivity"/>
         <activity
-            android:name=".screen.register.RegisterActivity"/>
+            android:name=".screen.forgotPassword.ForgotPasswordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

@@ -38,7 +38,7 @@ public class AuthenicationRemoteDataSource extends BaseRemoteDataSource
     }
 
     @Override
-    public void login(String email, String password, final DataCallback<FirebaseUser> callback) {
+    public void signIn(String email, String password, final DataCallback<FirebaseUser> callback) {
         mFirebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -62,6 +62,12 @@ public class AuthenicationRemoteDataSource extends BaseRemoteDataSource
         } else {
             callback.onGetDataSuccess(user);
         }
+    }
+
+    @Override
+    public void signOut(DataCallback<FirebaseUser> callback) {
+        mFirebaseAuth.signOut();
+        callback.onGetDataSuccess(null);
     }
 
     private void getResponse(Task<AuthResult> authResultTask, DataCallback callback) {

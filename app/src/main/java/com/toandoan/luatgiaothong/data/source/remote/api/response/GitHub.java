@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class GitHub {
-    @SerializedName("login")
+    @SerializedName("signIn")
     private String mLogin;
     @SerializedName("blog")
     private String mBlog;

@@ -18,8 +18,6 @@ interface LoginContract {
 
         void dismissDialog();
 
-        void onGetUserError(String message);
-
         void onGetCurrentUserError(String message);
 
         void onGetUserSuccessful(FirebaseUser firebaseUser);
@@ -27,6 +25,8 @@ interface LoginContract {
         void onLoginError(String message);
 
         void onLoginClick();
+
+        void onForgotPasswordClick();
 
         void onEmailEmpty();
 

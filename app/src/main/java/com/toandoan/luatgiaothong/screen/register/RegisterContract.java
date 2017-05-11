@@ -29,6 +29,10 @@ interface RegisterContract {
         void onRegisterClick();
 
         void dismissDialog();
+
+        void onForgotPwClick();
+
+        void onLoginClick();
     }
 
     /**
