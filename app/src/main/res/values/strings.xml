@@ -29,5 +29,7 @@
     <string name="empty_user_name">User name not be empty!</string>
     <string name="title_welcome">Welcome</string>
     <string name="title_edit">Pls enter your name and your photo to finish register account!</string>
+    <string name="error_upload_file">Upload image error, pls try again!</string>
+    <string name="progress_uploading">Uploading...</string>
 
 </resources>

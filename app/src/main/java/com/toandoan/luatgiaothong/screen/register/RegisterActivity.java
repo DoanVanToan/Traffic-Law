@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import com.google.firebase.auth.FirebaseAuth;
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
-import com.toandoan.luatgiaothong.data.source.remote.AuthenicationRemoteDataSource;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.databinding.ActivityRegisterBinding;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
@@ -30,7 +29,7 @@ public class RegisterActivity extends BaseActivity {
         mViewModel = new RegisterViewModel(this, new Navigator(this));
 
         AuthenicationRepository repository = new AuthenicationRepository(
-                new AuthenicationRemoteDataSource(FirebaseAuth.getInstance()));
+                new AuthenicationRemoteDataSource());
 
         RegisterContract.Presenter presenter = new RegisterPresenter(mViewModel, repository);
         mViewModel.setPresenter(presenter);

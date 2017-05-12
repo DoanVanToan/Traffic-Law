@@ -29,7 +29,7 @@
             />
 
         <ImageView
-            bind:imageUri="@{viewModel.userPhoto}"
+            bind:imageUrl="@{viewModel.userPhoto}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_150"
             />
