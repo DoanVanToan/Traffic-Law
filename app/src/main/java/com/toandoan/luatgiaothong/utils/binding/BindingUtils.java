@@ -1,6 +1,7 @@
 package com.toandoan.luatgiaothong.utils.binding;
 
 import android.databinding.BindingAdapter;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -52,8 +53,14 @@ public final class BindingUtils {
     public static void loadImage(ImageView imageView, String url) {
         Glide.with(imageView.getContext())
                 .load(url)
-                .placeholder(R.drawable.ic_dashboard_black_24dp)
+                .placeholder(R.mipmap.ic_launcher)
                 .into(imageView);
+    }
+
+    @BindingAdapter("bind:imageUri")
+    public static void loadImage(ImageView imageView, Uri uri) {
+        if (uri == null) return;
+        imageView.setImageURI(uri);
     }
 
     @BindingAdapter({ "spinnerAdapter" })

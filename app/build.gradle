@@ -47,6 +47,7 @@ dependencies {
   compile dependencies.loggingInterceptor
   compile dependencies.glide
   compile dependencies.firebase
+  compile dependencies.circleImage
 
   testCompile dependencies.junit
   testCompile dependencies.mockito
