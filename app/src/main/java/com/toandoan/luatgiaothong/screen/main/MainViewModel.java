@@ -74,8 +74,8 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     }
 
     @Bindable
-    public Uri getUserPhoto() {
-        return mUserPhoto;
+    public String getUserPhoto() {
+        return mUserPhoto.toString();
     }
 
     public void setUserPhoto(Uri userPhoto) {

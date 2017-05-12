@@ -1,18 +1,25 @@
 package com.toandoan.luatgiaothong.screen.editProfile;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.net.Uri;
+import android.support.v4.content.LocalBroadcastManager;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.screen.main.MainActivity;
+import com.toandoan.luatgiaothong.service.FirebaseUploadService;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
 import static android.app.Activity.RESULT_OK;
+import static com.toandoan.luatgiaothong.service.BaseStorageService.AVATAR_FOLDER;
+import static com.toandoan.luatgiaothong.service.FirebaseUploadService.ACTION_UPLOAD;
+import static com.toandoan.luatgiaothong.service.FirebaseUploadService.EXTRA_FOLDER;
+import static com.toandoan.luatgiaothong.service.FirebaseUploadService.EXTRA_URI;
 
 /**
  * Exposes the data to be used in the EditProfile screen.
@@ -28,6 +35,7 @@ public class EditProfileViewModel extends BaseObservable implements EditProfileC
     private Navigator mNavigator;
     private Context mContext;
     private ProgressDialog mDialog;
+    private BroadcastReceiver mReceiver;
 
     public EditProfileViewModel(Context context, Navigator navigator) {
         mContext = context;
@@ -39,11 +47,51 @@ public class EditProfileViewModel extends BaseObservable implements EditProfileC
     @Override
     public void onStart() {
         mPresenter.onStart();
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                switch (intent.getAction()) {
+
+                    case FirebaseUploadService.UPLOAD_COMPLETE:
+                        Uri uri =
+                                intent.getParcelableExtra(FirebaseUploadService.EXTRA_DOWNLOAD_URL);
+                        setPhotoUri(uri);
+                        mPresenter.saveUser(mUserName, mPhotoUri);
+                        break;
+                    case FirebaseUploadService.UPLOAD_ERROR:
+                        mNavigator.showToast(R.string.error_upload_file);
+                        break;
+                }
+            }
+        };
+
+        LocalBroadcastManager manager = LocalBroadcastManager.getInstance(mContext);
+        manager.registerReceiver(mReceiver, FirebaseUploadService.getIntentFilter());
+    }
+
+    private void uploadFromUri() {
+        mContext.startService(
+                new Intent(mContext, FirebaseUploadService.class).putExtra(EXTRA_URI, mPhotoUri)
+                        .putExtra(EXTRA_FOLDER, AVATAR_FOLDER)
+                        .setAction(ACTION_UPLOAD));
+
+        showProgressDialog(mContext.getString(R.string.progress_uploading));
+    }
+
+    private void showProgressDialog(String caption) {
+        if (mDialog == null) {
+            mDialog = new ProgressDialog(mContext);
+            mDialog.setIndeterminate(true);
+        }
+
+        mDialog.setMessage(caption);
+        mDialog.show();
     }
 
     @Override
     public void onStop() {
         mPresenter.onStop();
+        LocalBroadcastManager.getInstance(mContext).unregisterReceiver(mReceiver);
     }
 
     @Override
@@ -63,7 +111,7 @@ public class EditProfileViewModel extends BaseObservable implements EditProfileC
 
     @Override
     public void onSaveUserClick() {
-        mPresenter.saveUser(mUserName, mPhotoUri);
+        uploadFromUri();
     }
 
     @Override

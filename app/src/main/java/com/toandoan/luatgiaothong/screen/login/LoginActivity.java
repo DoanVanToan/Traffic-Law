@@ -4,13 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import com.google.firebase.auth.FirebaseAuth;
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
-import com.toandoan.luatgiaothong.data.source.remote.AuthenicationRemoteDataSource;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.databinding.ActivityLoginBinding;
-import com.toandoan.luatgiaothong.screen.main.MainActivity;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
 /**
@@ -31,7 +29,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         AuthenicationRepository repository = new AuthenicationRepository(
-                new AuthenicationRemoteDataSource(FirebaseAuth.getInstance()));
+                new AuthenicationRemoteDataSource());
 
         mViewModel = new LoginViewModel(this, new Navigator(this));
         LoginContract.Presenter presenter = new LoginPresenter(mViewModel, repository);

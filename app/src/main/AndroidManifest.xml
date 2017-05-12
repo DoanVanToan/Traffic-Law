@@ -3,6 +3,7 @@
     package="com.toandoan.luatgiaothong">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".AppApplication"
@@ -34,6 +35,9 @@
             android:name=".screen.editProfile.EditProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"/>
+
+        <service android:name=".service.FirebaseDownloadService"/>
+        <service android:name=".service.FirebaseUploadService"/>
     </application>
 
 </manifest>

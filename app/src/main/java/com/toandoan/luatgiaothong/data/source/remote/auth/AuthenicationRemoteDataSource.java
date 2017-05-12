@@ -1,4 +1,4 @@
-package com.toandoan.luatgiaothong.data.source.remote;
+package com.toandoan.luatgiaothong.data.source.remote.auth;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -6,7 +6,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.toandoan.luatgiaothong.data.source.AuthenicationDataSource;
@@ -16,10 +15,9 @@ import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
  * Created by framgia on 10/05/2017.
  */
 
-public class AuthenicationRemoteDataSource extends BaseRemoteDataSource
+public class AuthenicationRemoteDataSource extends BaseAuthRemoteDataSource
         implements AuthenicationDataSource.RemoteDataSource {
-    public AuthenicationRemoteDataSource(FirebaseAuth firebaseAuth) {
-        super(firebaseAuth);
+    public AuthenicationRemoteDataSource() {
     }
 
     @Override

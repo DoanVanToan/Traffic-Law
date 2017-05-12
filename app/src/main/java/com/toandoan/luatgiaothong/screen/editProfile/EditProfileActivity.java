@@ -8,7 +8,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
-import com.toandoan.luatgiaothong.data.source.remote.AuthenicationRemoteDataSource;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.databinding.ActivityEditProfileBinding;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
@@ -29,7 +29,7 @@ public class EditProfileActivity extends BaseActivity {
 
         mViewModel = new EditProfileViewModel(this, new Navigator(this));
         AuthenicationRepository repository = new AuthenicationRepository(
-                new AuthenicationRemoteDataSource(FirebaseAuth.getInstance()));
+                new AuthenicationRemoteDataSource());
 
         EditProfileContract.Presenter presenter = new EditProfilePresenter(mViewModel, repository);
         mViewModel.setPresenter(presenter);
