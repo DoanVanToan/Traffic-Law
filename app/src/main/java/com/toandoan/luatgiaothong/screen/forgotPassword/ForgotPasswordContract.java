@@ -12,7 +12,7 @@ interface ForgotPasswordContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
         void onResetPasswodClick();
-        
+
         void onBackClick();
 
         void onEmailEmpty();

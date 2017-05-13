@@ -1,6 +1,7 @@
 package com.toandoan.luatgiaothong.screen.login;
 
 import android.text.TextUtils;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;

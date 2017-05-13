@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.toandoan.luatgiaothong.screen.main.MainViewModel"
-            />
+            type="com.toandoan.luatgiaothong.screen.main.MainViewModel" />
 
     </data>
 
@@ -18,29 +15,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.toandoan.luatgiaothong.screen.main.MainActivity"
-        >
+        tools:context="com.toandoan.luatgiaothong.screen.main.MainActivity">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@{viewModel.userEmail}"
-            />
+            android:text="@{viewModel.userEmail}" />
 
         <ImageView
-            bind:imageUrl="@{viewModel.userPhoto}"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_150"
-            />
+            bind:imageUrl="@{viewModel.userPhoto}" />
 
         <android.support.v7.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"
             android:onClick="@{() -> viewModel.onSignOutClick()}"
-            android:text="@string/action_signout"
-            />
+            android:text="@string/action_signout" />
 
     </LinearLayout>
 </layout>

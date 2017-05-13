@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.toandoan.luatgiaothong.screen.login.LoginViewModel"
-            />
+            type="com.toandoan.luatgiaothong.screen.login.LoginViewModel" />
 
     </data>
 
@@ -20,15 +17,13 @@
         android:fitsSystemWindows="true"
         android:orientation="vertical"
         android:padding="@dimen/dp_10"
-        tools:context="com.toandoan.luatgiaothong.screen.login.LoginActivity"
-        >
+        tools:context="com.toandoan.luatgiaothong.screen.login.LoginActivity">
 
         <ImageView
             android:layout_width="@dimen/dp_100"
             android:layout_height="@dimen/dp_100"
             android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher_round"
-            />
+            android:src="@mipmap/ic_launcher_round" />
 
 
         <LinearLayout
@@ -36,12 +31,12 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
+
                 <android.support.v7.widget.AppCompatEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,15 +49,14 @@
                     android:textColor="@android:color/white"
                     android:textColorHighlight="@android:color/white"
                     android:textColorHint="@android:color/white"
-                    android:textColorLink="@android:color/white"
-                    />
+                    android:textColorLink="@android:color/white" />
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
+
                 <android.support.v7.widget.AppCompatEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -75,8 +69,7 @@
                     android:textColor="@android:color/white"
                     android:textColorHighlight="@android:color/white"
                     android:textColorHint="@android:color/white"
-                    android:textColorLink="@android:color/white"
-                    />
+                    android:textColorLink="@android:color/white" />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -88,14 +81,12 @@
                 android:color="@color/colorPrimary"
                 android:onClick="@{() -> viewModel.onLoginClick()}"
                 android:text="@string/action_login"
-                android:textColor="@android:color/white"
-                />
+                android:textColor="@android:color/white" />
 
             <com.google.android.gms.common.SignInButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                />
+                android:layout_marginTop="@dimen/dp_10" />
 
             <android.support.v7.widget.AppCompatButton
                 android:layout_width="match_parent"
@@ -104,8 +95,7 @@
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:onClick="@{()-> viewModel.onRegisterClick()}"
                 android:text="@string/action_register"
-                android:textColor="@android:color/white"
-                />
+                android:textColor="@android:color/white" />
 
 
         </LinearLayout>
@@ -118,8 +108,7 @@
             android:onClick="@{() -> viewModel.onForgotPasswordClick()}"
             android:text="@string/forgot_password"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_orange_dark"
-            />
+            android:textColor="@android:color/holo_orange_dark" />
 
 
     </LinearLayout>

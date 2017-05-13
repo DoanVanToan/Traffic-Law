@@ -7,12 +7,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StreamDownloadTask;
 import com.toandoan.luatgiaothong.screen.main.MainActivity;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -22,22 +24,31 @@ import java.io.InputStream;
 
 public class FirebaseDownloadService extends BaseStorageService {
 
-    private static final String TAG = "StorageDownloadService";
-
-    /** Actions **/
+    /**
+     * Actions
+     **/
     public static final String ACTION_DOWNLOAD = "action_download";
     public static final String DOWNLOAD_COMPLETED = "download_completed";
     public static final String DOWNLOAD_ERROR = "download_error";
-
-    /** Extras **/
+    /**
+     * Extras
+     **/
     public static final String EXTRA_DOWNLOAD_PATH = "extra_download_path";
     public static final String EXTRA_BYTES_DOWNLOADED = "extra_bytes_downloaded";
-
+    private static final String TAG = "StorageDownloadService";
     private final static String PROGRESS_DOWNLOAD = "Downloading...";
     private final static String DOWNLOAD_SUCCESS = "Download successful";
     private final static String DOWNLOAD_FAILED = "Download failed";
 
     private StorageReference mStorageRef;
+
+    public static IntentFilter getIntentFilter() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(DOWNLOAD_COMPLETED);
+        filter.addAction(DOWNLOAD_ERROR);
+
+        return filter;
+    }
 
     @Override
     public void onCreate() {
@@ -77,7 +88,7 @@ public class FirebaseDownloadService extends BaseStorageService {
         mStorageRef.child(downloadPath).getStream(new StreamDownloadTask.StreamProcessor() {
             @Override
             public void doInBackground(StreamDownloadTask.TaskSnapshot taskSnapshot,
-                    InputStream inputStream) throws IOException {
+                                       InputStream inputStream) throws IOException {
                 long totalBytes = taskSnapshot.getTotalByteCount();
                 long bytesDownloaded = 0;
 
@@ -150,13 +161,5 @@ public class FirebaseDownloadService extends BaseStorageService {
         boolean success = bytesDownloaded != -1;
         String caption = success ? DOWNLOAD_SUCCESS : DOWNLOAD_FAILED;
         showFinishedNotification(caption, intent, true);
-    }
-
-    public static IntentFilter getIntentFilter() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(DOWNLOAD_COMPLETED);
-        filter.addAction(DOWNLOAD_ERROR);
-
-        return filter;
     }
 }

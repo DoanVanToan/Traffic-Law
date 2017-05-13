@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
 import com.toandoan.luatgiaothong.R;
 
 /**
@@ -15,12 +16,10 @@ import com.toandoan.luatgiaothong.R;
 
 public abstract class BaseStorageService extends Service {
 
-    static final int PROGRESS_NOTIFICATION_ID = 0;
-    static final int FINISHED_NOTIFICATION_ID = 1;
-
     public static final String AVATAR_FOLDER = "profile_images";
     public static final String POST_FOLDER = "post_images";
-
+    static final int PROGRESS_NOTIFICATION_ID = 0;
+    static final int FINISHED_NOTIFICATION_ID = 1;
     private static final String TAG = "BaseStorageService";
     private int mNumTasks = 0;
 

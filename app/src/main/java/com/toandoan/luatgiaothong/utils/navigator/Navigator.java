@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.Toast;
+
 import com.toandoan.luatgiaothong.R;
 
 /**
@@ -74,7 +75,7 @@ public class Navigator {
     }
 
     public void startActivityForResult(@NonNull Class<? extends Activity> clazz, Bundle args,
-            int requestCode) {
+                                       int requestCode) {
         Intent intent = new Intent(mActivity, clazz);
         intent.putExtras(args);
         startActivityForResult(intent, requestCode);
@@ -99,7 +100,7 @@ public class Navigator {
      * @param fragment new child fragment
      */
     public void goNextChildFragment(@IdRes int containerViewId, Fragment fragment,
-            boolean addToBackStack, int animation, String tag) {
+                                    boolean addToBackStack, int animation, String tag) {
         if (mFragment == null) return;
         FragmentTransaction transaction = mFragment.getChildFragmentManager().beginTransaction();
         setFragmentTransactionAnimation(transaction, animation);
@@ -110,7 +111,7 @@ public class Navigator {
     }
 
     private void setFragmentTransactionAnimation(FragmentTransaction transaction,
-            @NavigateAnim int animation) {
+                                                 @NavigateAnim int animation) {
         switch (animation) {
             case FADED:
                 transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
@@ -131,16 +132,6 @@ public class Navigator {
         }
     }
 
-    @IntDef({ RIGHT_LEFT, BOTTOM_UP, FADED, NONE, LEFT_RIGHT })
-    public @interface NavigateAnim {
-    }
-
-    @IntDef({ ActivityTransition.START, ActivityTransition.FINISH })
-    @interface ActivityTransition {
-        int START = 0x00;
-        int FINISH = 0x01;
-    }
-
     public void showToast(@StringRes int stringId) {
         Toast.makeText(mActivity, mActivity.getString(stringId) + "", Toast.LENGTH_SHORT).show();
     }
@@ -149,5 +140,15 @@ public class Navigator {
         if (message != null) {
             Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @IntDef({RIGHT_LEFT, BOTTOM_UP, FADED, NONE, LEFT_RIGHT})
+    public @interface NavigateAnim {
+    }
+
+    @IntDef({ActivityTransition.START, ActivityTransition.FINISH})
+    @interface ActivityTransition {
+        int START = 0x00;
+        int FINISH = 0x01;
     }
 }

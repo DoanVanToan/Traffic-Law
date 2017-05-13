@@ -1,8 +1,10 @@
 package com.toandoan.luatgiaothong;
 
 import android.app.Application;
+
 import com.toandoan.luatgiaothong.data.source.local.realm.DataLocalMigration;
 import com.toandoan.luatgiaothong.data.source.remote.api.service.AppServiceClient;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
