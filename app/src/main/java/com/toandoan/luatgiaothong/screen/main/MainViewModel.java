@@ -3,8 +3,6 @@ package com.toandoan.luatgiaothong.screen.main;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.net.Uri;
-
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
@@ -21,13 +19,13 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     private Navigator mNavigator;
     private Context mContext;
     private MainActivity mActivity;
-    private String mUserEmail;
-    private Uri mUserPhoto;
+    private MainPagerAdapter mPagerAdapter;
 
     public MainViewModel(Context context, Navigator navigator) {
         mContext = context;
         mActivity = (MainActivity) context;
         mNavigator = navigator;
+        mPagerAdapter = new MainPagerAdapter(mActivity.getSupportFragmentManager());
     }
 
     @Override
@@ -47,8 +45,7 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
 
     @Override
     public void onGetCurrentUserSuccess(FirebaseUser data) {
-        setUserEmail(data.getEmail());
-        setUserPhoto(data.getPhotoUrl());
+
     }
 
     @Override
@@ -72,22 +69,12 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     }
 
     @Bindable
-    public String getUserEmail() {
-        return mUserEmail;
+    public MainPagerAdapter getPagerAdapter() {
+        return mPagerAdapter;
     }
 
-    public void setUserEmail(String userEmail) {
-        mUserEmail = userEmail;
-        notifyPropertyChanged(BR.userEmail);
-    }
-
-    @Bindable
-    public String getUserPhoto() {
-        return mUserPhoto.toString();
-    }
-
-    public void setUserPhoto(Uri userPhoto) {
-        mUserPhoto = userPhoto;
-        notifyPropertyChanged(BR.userPhoto);
+    public void setPagerAdapter(MainPagerAdapter pagerAdapter) {
+        mPagerAdapter = pagerAdapter;
+        notifyPropertyChanged(BR.pagerAdapter);
     }
 }

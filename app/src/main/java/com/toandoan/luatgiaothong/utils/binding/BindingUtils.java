@@ -39,18 +39,18 @@ public final class BindingUtils {
     }
 
     @BindingAdapter({"bind:adapter"})
-    public static void setViewPagerAdapter(final ViewPager viewPager,
-                                           final FragmentPagerAdapter adapter) {
+    public static void setViewPagerAdapter(ViewPager viewPager,
+                                           FragmentPagerAdapter adapter) {
         viewPager.setAdapter(adapter);
     }
 
     @BindingAdapter({"bind:pager"})
-    public static void setViewPagerTabs(final TabLayout tabLayout, final ViewPager viewPager) {
+    public static void setViewPagerTabs(TabLayout tabLayout, ViewPager viewPager) {
         tabLayout.setupWithViewPager(viewPager, true);
     }
 
     @BindingAdapter({"bind:currentFragment"})
-    public static void setCurrentViewPager(final ViewPager viewPager, final int currentPage) {
+    public static void setCurrentViewPager(ViewPager viewPager, int currentPage) {
         viewPager.setCurrentItem(currentPage);
         viewPager.beginFakeDrag();
     }
