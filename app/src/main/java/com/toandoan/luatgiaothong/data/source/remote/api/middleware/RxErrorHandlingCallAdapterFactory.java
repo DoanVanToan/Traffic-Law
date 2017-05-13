@@ -2,10 +2,15 @@ package com.toandoan.luatgiaothong.data.source.remote.api.middleware;
 
 import android.text.TextUtils;
 import android.util.Log;
+
 import com.google.gson.Gson;
+import com.toandoan.luatgiaothong.data.source.remote.api.error.BaseException;
+import com.toandoan.luatgiaothong.data.source.remote.api.response.ErrorResponse;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+
 import retrofit2.Call;
 import retrofit2.CallAdapter;
 import retrofit2.Response;
@@ -14,8 +19,6 @@ import retrofit2.adapter.rxjava.HttpException;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import rx.Observable;
 import rx.functions.Func1;
-import com.toandoan.luatgiaothong.data.source.remote.api.error.BaseException;
-import com.toandoan.luatgiaothong.data.source.remote.api.response.ErrorResponse;
 
 /**
  * ErrorHandling:

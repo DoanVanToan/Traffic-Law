@@ -4,6 +4,7 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.net.Uri;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.screen.login.LoginActivity;

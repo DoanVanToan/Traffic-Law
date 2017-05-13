@@ -1,20 +1,15 @@
 package com.toandoan.luatgiaothong.utils.binding;
 
-import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.databinding.BindingAdapter;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,7 +18,6 @@ import com.bumptech.glide.Glide;
 import com.toandoan.luatgiaothong.R;
 
 import java.io.File;
-import java.net.URISyntaxException;
 
 /**
  *

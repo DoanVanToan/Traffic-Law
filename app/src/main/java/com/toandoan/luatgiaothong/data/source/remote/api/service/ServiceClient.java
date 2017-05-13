@@ -6,7 +6,13 @@ import android.support.annotation.NonNull;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.toandoan.luatgiaothong.BuildConfig;
+import com.toandoan.luatgiaothong.data.source.remote.api.adapter.BooleanAdapter;
+import com.toandoan.luatgiaothong.data.source.remote.api.adapter.IntegerAdapter;
+import com.toandoan.luatgiaothong.data.source.remote.api.middleware.RxErrorHandlingCallAdapterFactory;
+
 import java.util.concurrent.TimeUnit;
+
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -14,10 +20,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import com.toandoan.luatgiaothong.BuildConfig;
-import com.toandoan.luatgiaothong.data.source.remote.api.adapter.BooleanAdapter;
-import com.toandoan.luatgiaothong.data.source.remote.api.adapter.IntegerAdapter;
-import com.toandoan.luatgiaothong.data.source.remote.api.middleware.RxErrorHandlingCallAdapterFactory;
 
 /**
  *
@@ -31,12 +33,12 @@ public class ServiceClient {
     }
 
     static <T> T createService(Application application, String endPoint, Class<T> serviceClass,
-            Interceptor interceptor) {
+                               Interceptor interceptor) {
         return createService(application, endPoint, serviceClass, getGsonConfig(), interceptor);
     }
 
     private static <T> T createService(Application application, String endPoint, Class<T> serviceClass,
-            @NonNull Gson gson, Interceptor interceptor) {
+                                       @NonNull Gson gson, Interceptor interceptor) {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient.Builder();
         int cacheSize = 10 * 1024 * 1024; // 10 MiB
         httpClientBuilder.cache(new Cache(application.getCacheDir(), cacheSize));

@@ -3,6 +3,7 @@ package com.toandoan.luatgiaothong.screen.forgotPassword;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;

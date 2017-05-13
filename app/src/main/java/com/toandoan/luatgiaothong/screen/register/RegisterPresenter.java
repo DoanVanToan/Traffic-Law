@@ -1,6 +1,7 @@
 package com.toandoan.luatgiaothong.screen.register;
 
 import android.text.TextUtils;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
@@ -15,7 +16,7 @@ final class RegisterPresenter implements RegisterContract.Presenter {
     private AuthenicationRepository mRepository;
 
     public RegisterPresenter(RegisterContract.ViewModel viewModel,
-            AuthenicationRepository repository) {
+                             AuthenicationRepository repository) {
         mViewModel = viewModel;
         mRepository = repository;
     }

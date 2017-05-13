@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -21,24 +22,31 @@ import com.toandoan.luatgiaothong.screen.main.MainActivity;
  */
 
 public class FirebaseUploadService extends BaseStorageService {
-    private static final String TAG = "FirebaseUploadService";
-    /** Action **/
+    /**
+     * Action
+     **/
     public final static String ACTION_UPLOAD = "com.toandoan.action.ACTION_UPLOAD";
     public final static String UPLOAD_COMPLETE = "upload_complete";
     public final static String UPLOAD_ERROR = "upload_error";
-
-    /** Intent Extra **/
+    /**
+     * Intent Extra
+     **/
     public final static String EXTRA_URI = "EXTRA_URI";
     public final static String EXTRA_DOWNLOAD_URL = "EXTRA_DOWNLOAD_URL";
     public final static String EXTRA_FOLDER = "EXTRA_FOLDER";
-
     public final static String PROGRESS_UPLOAD = "Uploading...";
     public final static String UPLOAD_SUCCESS = "Upload successful";
     public final static String UPLOAD_FAILED = "Upload failed";
-
+    private static final String TAG = "FirebaseUploadService";
     private StorageReference mStorageRef;
 
+    public static IntentFilter getIntentFilter() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(UPLOAD_COMPLETE);
+        filter.addAction(UPLOAD_ERROR);
 
+        return filter;
+    }
 
     @Override
     public void onCreate() {
@@ -55,6 +63,7 @@ public class FirebaseUploadService extends BaseStorageService {
         }
         return START_REDELIVER_INTENT;
     }
+    // [END upload_from_uri]
 
     // [START upload_from_uri]
     private void uploadFromUri(final Uri fileUri, String folder) {
@@ -108,7 +117,6 @@ public class FirebaseUploadService extends BaseStorageService {
             }
         });
     }
-    // [END upload_from_uri]
 
     /**
      * Broadcast finished upload (success or failure).
@@ -141,14 +149,6 @@ public class FirebaseUploadService extends BaseStorageService {
         boolean success = downloadUrl != null;
         String caption = success ? UPLOAD_SUCCESS : UPLOAD_FAILED;
         showFinishedNotification(caption, intent, success);
-    }
-
-    public static IntentFilter getIntentFilter() {
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(UPLOAD_COMPLETE);
-        filter.addAction(UPLOAD_ERROR);
-
-        return filter;
     }
 
     @Nullable

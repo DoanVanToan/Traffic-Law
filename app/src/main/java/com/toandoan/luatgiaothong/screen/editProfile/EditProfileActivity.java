@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import com.google.firebase.auth.FirebaseAuth;
+
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
@@ -17,11 +17,11 @@ import com.toandoan.luatgiaothong.utils.navigator.Navigator;
  */
 public class EditProfileActivity extends BaseActivity {
 
+    private EditProfileContract.ViewModel mViewModel;
+
     public static Intent getInstance(Context context) {
         return new Intent(context, EditProfileActivity.class);
     }
-
-    private EditProfileContract.ViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

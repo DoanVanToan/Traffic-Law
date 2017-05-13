@@ -2,6 +2,7 @@ package com.toandoan.luatgiaothong.screen.editProfile;
 
 import android.net.Uri;
 import android.text.TextUtils;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
@@ -16,7 +17,7 @@ final class EditProfilePresenter implements EditProfileContract.Presenter {
     private AuthenicationRepository mRepository;
 
     public EditProfilePresenter(EditProfileContract.ViewModel viewModel,
-            AuthenicationRepository repository) {
+                                AuthenicationRepository repository) {
         mViewModel = viewModel;
         mRepository = repository;
     }

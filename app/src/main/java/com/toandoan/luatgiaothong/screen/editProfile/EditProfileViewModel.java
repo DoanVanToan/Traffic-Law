@@ -8,6 +8,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.R;
@@ -151,16 +152,16 @@ public class EditProfileViewModel extends BaseObservable implements EditProfileC
         return mUserName;
     }
 
+    public void setUserName(String userName) {
+        mUserName = userName;
+        notifyPropertyChanged(BR.userName);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE_REQUEST) {
             setPhotoUri(data.getData());
         }
-    }
-
-    public void setUserName(String userName) {
-        mUserName = userName;
-        notifyPropertyChanged(BR.userName);
     }
 
     @Bindable

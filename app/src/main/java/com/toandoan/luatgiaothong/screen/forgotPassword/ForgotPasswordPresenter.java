@@ -1,6 +1,7 @@
 package com.toandoan.luatgiaothong.screen.forgotPassword;
 
 import android.text.TextUtils;
+
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 
@@ -16,7 +17,7 @@ final class ForgotPasswordPresenter implements ForgotPasswordContract.Presenter 
     private AuthenicationRepository mRepository;
 
     public ForgotPasswordPresenter(ForgotPasswordContract.ViewModel viewModel,
-            AuthenicationRepository repository) {
+                                   AuthenicationRepository repository) {
         mViewModel = viewModel;
         mRepository = repository;
     }

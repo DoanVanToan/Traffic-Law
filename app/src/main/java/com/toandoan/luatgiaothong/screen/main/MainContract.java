@@ -13,7 +13,7 @@ interface MainContract {
      */
     interface ViewModel extends BaseViewModel<Presenter> {
         void onGetCurrentUserSuccess(FirebaseUser data);
-        
+
         void onSignOutClick();
 
         void onSignOutSuccess();
