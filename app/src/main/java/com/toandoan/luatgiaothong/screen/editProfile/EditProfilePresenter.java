@@ -4,7 +4,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 
 /**

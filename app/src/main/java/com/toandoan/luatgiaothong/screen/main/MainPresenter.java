@@ -4,7 +4,7 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 
 import java.util.List;

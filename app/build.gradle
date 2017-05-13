@@ -52,6 +52,7 @@ dependencies {
     compile dependencies.googleAuth
     compile dependencies.facebookAuth
     compile dependencies.firebaseStorage
+    compile dependencies.firebaseDataBase
 
     testCompile dependencies.junit
     testCompile dependencies.mockito

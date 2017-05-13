@@ -14,7 +14,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
-import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.local.sharedprf.SharedPrefsImpl;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.databinding.ActivityLoginBinding;
