@@ -1,39 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.toandoan.luatgiaothong.screen.main.MainViewModel" />
+            type="com.toandoan.luatgiaothong.screen.main.MainViewModel"
+            />
 
     </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.toandoan.luatgiaothong.screen.main.MainActivity">
+        tools:context="com.toandoan.luatgiaothong.screen.main.MainActivity"
+        >
 
-        <TextView
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            bind:pager="@{viewPager}"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@{viewModel.userEmail}" />
-
-        <ImageView
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/white"
+            bind:tabIndicatorColor="@android:color/white"
+            />
+        <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_150"
-            bind:imageUrl="@{viewModel.userPhoto}" />
-
-        <android.support.v7.widget.AppCompatButton
+            android:layout_height="@dimen/dp_1"
+            android:background="@android:color/darker_gray"
+            />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:onClick="@{() -> viewModel.onSignOutClick()}"
-            android:text="@string/action_signout" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            bind:adapter="@{viewModel.pagerAdapter}"
+            />
 
     </LinearLayout>
 </layout>

@@ -4,19 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-
+import android.support.design.widget.TabLayout;
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
-import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.databinding.ActivityMainBinding;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
+
+import static com.toandoan.luatgiaothong.screen.main.MainPagerAdapter.PROFILE;
+import static com.toandoan.luatgiaothong.screen.main.MainPagerAdapter.TIME_LINE;
 
 /**
  * Main Screen.
  */
 public class MainActivity extends BaseActivity {
     private MainContract.ViewModel mViewModel;
+    private TabLayout mTabLayout;
 
     public static Intent getInstance(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -29,13 +33,54 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         mViewModel = new MainViewModel(this, new Navigator(this));
-        AuthenicationRepository repository = new AuthenicationRepository(
-                new AuthenicationRemoteDataSource());
+        AuthenicationRepository repository =
+                new AuthenicationRepository(new AuthenicationRemoteDataSource());
         MainContract.Presenter presenter = new MainPresenter(mViewModel, repository);
         mViewModel.setPresenter(presenter);
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setViewModel((MainViewModel) mViewModel);
+        mTabLayout = binding.tabLayout;
+        initTabLayout();
+        getSupportActionBar().hide();
+    }
+
+    private void initTabLayout() {
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (mTabLayout.getTabAt(1).getIcon() == null) {
+                    mTabLayout.getTabAt(1).setIcon(R.drawable.ic_user);
+                }
+                
+                switch (tab.getPosition()) {
+                    case TIME_LINE:
+                        tab.setIcon(R.drawable.ic_home_selected);
+                        break;
+                    case PROFILE:
+                        tab.setIcon(R.drawable.ic_user_selected);
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case TIME_LINE:
+                        tab.setIcon(R.drawable.ic_home);
+                        break;
+                    case PROFILE:
+                        tab.setIcon(R.drawable.ic_user);
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override

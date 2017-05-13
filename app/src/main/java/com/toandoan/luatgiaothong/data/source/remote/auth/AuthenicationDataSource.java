@@ -17,13 +17,13 @@ public interface AuthenicationDataSource {
     interface RemoteDataSource {
         void register(String email, String password, DataCallback<FirebaseUser> callBack);
 
+        void getCurrentUser(DataCallback<FirebaseUser> callBack);
+
         void signIn(String email, String password, DataCallback<FirebaseUser> callBack);
 
         void signIn(GoogleSignInAccount account, DataCallback<FirebaseUser> callback);
 
         void signIn(AccessToken token, DataCallback<FirebaseUser> callback);
-
-        void getCurrentUser(DataCallback<FirebaseUser> callBack);
 
         void signOut(GoogleApiClient googleApiClient, DataCallback<FirebaseUser> callback);
 
