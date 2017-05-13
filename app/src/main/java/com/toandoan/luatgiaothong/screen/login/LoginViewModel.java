@@ -2,10 +2,14 @@ package com.toandoan.luatgiaothong.screen.login;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.TextUtils;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.R;
@@ -21,6 +25,7 @@ import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
 public class LoginViewModel extends BaseObservable implements LoginContract.ViewModel {
 
+    private static final int GOOGLE_SIGNIN_REQUEST = 1;
     private LoginContract.Presenter mPresenter;
     private Context mContext;
     private Navigator mNavigator;
@@ -28,9 +33,11 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     private String mEmail;
     private String mPassword;
+    private LoginActivity mActivity;
 
     public LoginViewModel(Context context, Navigator navigator) {
         mContext = context;
+        mActivity = (LoginActivity) context;
         mNavigator = navigator;
         mDialog = new ProgressDialog(context);
         mDialog.setMessage(context.getString(R.string.msg_loading));
@@ -96,6 +103,12 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     }
 
     @Override
+    public void onLoginGoogleClick() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mActivity.getGoogleApiClient());
+        mActivity.startActivityForResult(signInIntent, GOOGLE_SIGNIN_REQUEST);
+    }
+
+    @Override
     public void onForgotPasswordClick() {
         mNavigator.startActivity(ForgotPasswordActivity.getInstance(mContext));
     }
@@ -108,6 +121,19 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
     @Override
     public void onPasswordEmpty() {
         mNavigator.showToast(R.string.empty_password);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == GOOGLE_SIGNIN_REQUEST) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess()) {
+                GoogleSignInAccount account = result.getSignInAccount();
+                mPresenter.login(account);
+            } else {
+                mNavigator.showToast(result.getStatus().getStatusMessage());
+            }
+        }
     }
 
     @Bindable
@@ -129,4 +155,5 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         mPassword = password;
         notifyPropertyChanged(BR.password);
     }
+
 }

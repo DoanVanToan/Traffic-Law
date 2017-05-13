@@ -121,7 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="@dimen/dp_10"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:backgroundTint="@android:color/holo_orange_dark"
             android:color="@color/colorPrimary"
             android:onClick="@{() -> viewModel.onSaveUserClick()}"
             android:text="@string/action_save"

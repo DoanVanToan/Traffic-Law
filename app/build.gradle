@@ -49,6 +49,7 @@ dependencies {
     compile dependencies.circleImage
 
     compile dependencies.firebaseAuth
+    compile dependencies.googleAuth
     compile dependencies.firebaseStorage
 
     testCompile dependencies.junit

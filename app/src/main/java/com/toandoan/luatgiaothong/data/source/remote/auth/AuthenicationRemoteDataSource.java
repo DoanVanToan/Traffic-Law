@@ -3,11 +3,16 @@ package com.toandoan.luatgiaothong.data.source.remote.auth;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.toandoan.luatgiaothong.data.source.AuthenicationDataSource;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
@@ -21,6 +26,13 @@ public class AuthenicationRemoteDataSource extends BaseAuthRemoteDataSource
     public AuthenicationRemoteDataSource() {
     }
 
+    /**
+     * Register with normal account
+     *
+     * @param email
+     * @param password
+     * @param callback
+     */
     @Override
     public void register(String email, String password, final DataCallback<FirebaseUser> callback) {
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -38,6 +50,13 @@ public class AuthenicationRemoteDataSource extends BaseAuthRemoteDataSource
                 });
     }
 
+    /**
+     * Login with normal account
+     *
+     * @param email
+     * @param password
+     * @param callback
+     */
     @Override
     public void signIn(String email, String password, final DataCallback<FirebaseUser> callback) {
         mFirebaseAuth.signInWithEmailAndPassword(email, password)
@@ -55,6 +74,40 @@ public class AuthenicationRemoteDataSource extends BaseAuthRemoteDataSource
                 });
     }
 
+    /**
+     * Login with google
+     *
+     * @param account
+     * @param callback
+     */
+    @Override
+    public void signIn(GoogleSignInAccount account, final DataCallback<FirebaseUser> callback) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        mFirebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mFirebaseAuth.getCurrentUser();
+                            callback.onGetDataSuccess(user);
+                        } else {
+                            callback.onGetDataFailed(task.getException().getMessage());
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+
+                    }
+                });
+    }
+
+    /**
+     * Get current firebase user
+     *
+     * @param callback
+     */
     @Override
     public void getCurrentUser(DataCallback<FirebaseUser> callback) {
         FirebaseUser user = mFirebaseAuth.getCurrentUser();
@@ -65,12 +118,31 @@ public class AuthenicationRemoteDataSource extends BaseAuthRemoteDataSource
         }
     }
 
+    /**
+     * Signout
+     *
+     * @param callback
+     */
+    @Override
+    public void signOut(GoogleApiClient googleApiClient, DataCallback<FirebaseUser> callback) {
+        if (googleApiClient != null) {
+            Auth.GoogleSignInApi.signOut(googleApiClient);
+        }
+        signOut(callback);
+    }
+
     @Override
     public void signOut(DataCallback<FirebaseUser> callback) {
         mFirebaseAuth.signOut();
         callback.onGetDataSuccess(null);
     }
 
+    /**
+     * reset password by send email
+     *
+     * @param email
+     * @param callback
+     */
     @Override
     public void resetPassword(String email, final DataCallback callback) {
         mFirebaseAuth.sendPasswordResetEmail(email)

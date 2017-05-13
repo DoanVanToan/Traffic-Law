@@ -2,6 +2,8 @@ package com.toandoan.luatgiaothong.data.source;
 
 import android.net.Uri;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 
@@ -20,12 +22,20 @@ public class AuthenicationRepository {
         mRemoteDataSource.register(email, password, callback);
     }
 
-    public void login(String email, String password, DataCallback<FirebaseUser> callback) {
+    public void signIn(String email, String password, DataCallback<FirebaseUser> callback) {
         mRemoteDataSource.signIn(email, password, callback);
+    }
+
+    public void signIn(GoogleSignInAccount account, DataCallback<FirebaseUser> callback) {
+        mRemoteDataSource.signIn(account, callback);
     }
 
     public void getCurrentUser(DataCallback<FirebaseUser> callback) {
         mRemoteDataSource.getCurrentUser(callback);
+    }
+
+    public void signOut(GoogleApiClient googleApiClient, DataCallback callback) {
+        mRemoteDataSource.signOut(googleApiClient, callback);
     }
 
     public void signOut(DataCallback callback) {

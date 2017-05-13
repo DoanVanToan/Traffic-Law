@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.View;
 
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
@@ -15,7 +16,7 @@ import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 /**
  * Login Screen.
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private LoginContract.ViewModel mViewModel;
 
@@ -39,6 +40,8 @@ public class LoginActivity extends BaseActivity {
         ActivityLoginBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.setViewModel((LoginViewModel) mViewModel);
+        binding.signInButton.setOnClickListener(this);
+
         getSupportActionBar().hide();
     }
 
@@ -52,5 +55,20 @@ public class LoginActivity extends BaseActivity {
     protected void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mViewModel.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.sign_in_button:
+                mViewModel.onLoginGoogleClick();
+                break;
+        }
     }
 }

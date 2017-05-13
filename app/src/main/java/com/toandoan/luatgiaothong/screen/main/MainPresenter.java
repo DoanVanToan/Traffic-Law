@@ -1,8 +1,12 @@
 package com.toandoan.luatgiaothong.screen.main;
 
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
+
+import java.util.List;
 
 /**
  * Listens to user actions from the UI ({@link MainActivity}), retrieves the data and updates
@@ -13,6 +17,8 @@ final class MainPresenter implements MainContract.Presenter {
 
     private final MainContract.ViewModel mViewModel;
     private AuthenicationRepository mRepository;
+    private FirebaseUser mUser;
+    private DataCallback mSignOutCallback;
 
     public MainPresenter(MainContract.ViewModel viewModel, AuthenicationRepository repository) {
         mViewModel = viewModel;
@@ -24,6 +30,7 @@ final class MainPresenter implements MainContract.Presenter {
         mRepository.getCurrentUser(new DataCallback<FirebaseUser>() {
             @Override
             public void onGetDataSuccess(FirebaseUser data) {
+                mUser = data;
                 mViewModel.onGetCurrentUserSuccess(data);
             }
 
@@ -32,15 +39,12 @@ final class MainPresenter implements MainContract.Presenter {
 
             }
         });
+
+
     }
 
-    @Override
-    public void onStop() {
-    }
-
-    @Override
-    public void signOut() {
-        mRepository.signOut(new DataCallback() {
+    private void initSignOutCallback() {
+        mSignOutCallback = new DataCallback() {
             @Override
             public void onGetDataSuccess(Object data) {
                 mViewModel.onSignOutSuccess();
@@ -50,6 +54,35 @@ final class MainPresenter implements MainContract.Presenter {
             public void onGetDataFailed(String msg) {
                 mViewModel.onSignOutFailed(msg);
             }
-        });
+        };
+    }
+
+    @Override
+    public void onStop() {
+    }
+
+    @Override
+    public void signOut() {
+        if (mUser == null) return;
+        if (mSignOutCallback == null) {
+            initSignOutCallback();
+        }
+        List<String> provinders = mUser.getProviders();
+
+        if (provinders != null && provinders.size() != 0) {
+            for (String provinder : provinders) {
+                switch (provinder) {
+                    case GoogleAuthProvider.PROVIDER_ID:
+                        mRepository.signOut(mViewModel.getGoogleApiCliennt(), mSignOutCallback);
+                        break;
+                    case FacebookAuthProvider.PROVIDER_ID:
+                        mRepository.signOut(mSignOutCallback);
+                        break;
+                    default:
+                        mRepository.signOut(mSignOutCallback);
+                        break;
+                }
+            }
+        }
     }
 }
