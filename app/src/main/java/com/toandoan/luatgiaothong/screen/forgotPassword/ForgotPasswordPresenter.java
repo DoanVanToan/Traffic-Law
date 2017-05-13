@@ -2,7 +2,7 @@ package com.toandoan.luatgiaothong.screen.forgotPassword;
 
 import android.text.TextUtils;
 
-import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 
 /**

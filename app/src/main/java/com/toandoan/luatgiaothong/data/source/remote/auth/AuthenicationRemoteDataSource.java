@@ -17,10 +17,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.toandoan.luatgiaothong.data.source.AuthenicationDataSource;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
-
-import java.util.List;
 
 /**
  * Created by framgia on 10/05/2017.

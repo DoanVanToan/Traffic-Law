@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
-import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.databinding.ActivityForgotPasswordBinding;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
