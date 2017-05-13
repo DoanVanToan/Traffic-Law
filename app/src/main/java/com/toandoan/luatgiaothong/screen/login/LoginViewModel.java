@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.TextUtils;
-
 import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,17 +22,15 @@ import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 /**
  * Exposes the data to be used in the Login screen.
  */
-
 public class LoginViewModel extends BaseObservable implements LoginContract.ViewModel {
-
     private static final int GOOGLE_SIGNIN_REQUEST = 1;
     private LoginContract.Presenter mPresenter;
     private Context mContext;
     private Navigator mNavigator;
     private ProgressDialog mDialog;
-
     private String mEmail;
     private String mPassword;
+    private boolean mIsRememberAccount;
     private LoginActivity mActivity;
 
     public LoginViewModel(Context context, Navigator navigator) {
@@ -100,7 +97,7 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
 
     @Override
     public void onLoginClick() {
-        mPresenter.login(mEmail, mPassword);
+        mPresenter.login(mEmail, mPassword, mIsRememberAccount);
     }
 
     @Override
@@ -142,6 +139,20 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         mPresenter.login(accessToken);
     }
 
+    @Override
+    public void onGetLastEmail(String s) {
+        if (TextUtils.isEmpty(s)) return;
+        setEmail(s);
+        setRememberAccount(true);
+    }
+
+    @Override
+    public void onGetLastPassword(String s) {
+        if (TextUtils.isEmpty(s)) return;
+        setPassword(s);
+        setRememberAccount(true);
+    }
+
     @Bindable
     public String getEmail() {
         return mEmail;
@@ -162,4 +173,13 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
         notifyPropertyChanged(BR.password);
     }
 
+    @Bindable
+    public boolean isRememberAccount() {
+        return mIsRememberAccount;
+    }
+
+    public void setRememberAccount(boolean rememberAccount) {
+        mIsRememberAccount = rememberAccount;
+        notifyPropertyChanged(BR.rememberAccount);
+    }
 }
