@@ -50,6 +50,7 @@ dependencies {
 
     compile dependencies.firebaseAuth
     compile dependencies.googleAuth
+    compile dependencies.facebookAuth
     compile dependencies.firebaseStorage
 
     testCompile dependencies.junit

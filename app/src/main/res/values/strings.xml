@@ -33,5 +33,7 @@
     <string name="error_upload_file">Upload image error, pls try again!</string>
     <string name="progress_uploading">Uploading...</string>
     <string name="title_or">Or</string>
+    <string name="facebook_app_id">294623550995501</string>
+    <string name="login_facebook_cancel">Login cancel!</string>
 
 </resources>

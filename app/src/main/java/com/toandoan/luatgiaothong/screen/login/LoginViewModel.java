@@ -7,6 +7,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.text.TextUtils;
 
+import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -134,6 +135,11 @@ public class LoginViewModel extends BaseObservable implements LoginContract.View
                 mNavigator.showToast(result.getStatus().getStatusMessage());
             }
         }
+    }
+
+    @Override
+    public void onLoginFacebookSuccess(AccessToken accessToken) {
+        mPresenter.login(accessToken);
     }
 
     @Bindable

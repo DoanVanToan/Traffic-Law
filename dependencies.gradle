@@ -7,7 +7,10 @@ ext {
                   cardView          : 'com.android.support:cardview-v7:25.2.0',
                   firebaseAuth      : 'com.google.firebase:firebase-auth:9.0.2',
                   firebaseStorage   : 'com.google.firebase:firebase-storage:9.0.2',
+
                   googleAuth        : 'com.google.android.gms:play-services-auth:9.0.0',
+
+                  facebookAuth      : 'com.facebook.android:facebook-android-sdk:[4,5)' ,
 
                   rxJava            : 'io.reactivex:rxjava:1.1.5',
                   rxAndroid         : 'io.reactivex:rxandroid:1.2.0',

@@ -1,5 +1,6 @@
 package com.toandoan.luatgiaothong.screen.main;
 
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -68,7 +69,6 @@ final class MainPresenter implements MainContract.Presenter {
             initSignOutCallback();
         }
         List<String> provinders = mUser.getProviders();
-
         if (provinders != null && provinders.size() != 0) {
             for (String provinder : provinders) {
                 switch (provinder) {
@@ -76,7 +76,7 @@ final class MainPresenter implements MainContract.Presenter {
                         mRepository.signOut(mViewModel.getGoogleApiCliennt(), mSignOutCallback);
                         break;
                     case FacebookAuthProvider.PROVIDER_ID:
-                        mRepository.signOut(mSignOutCallback);
+                        mRepository.signOut(LoginManager.getInstance(), mSignOutCallback);
                         break;
                     default:
                         mRepository.signOut(mSignOutCallback);

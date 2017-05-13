@@ -3,6 +3,8 @@ package com.toandoan.luatgiaothong.data.source.remote.auth;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -11,11 +13,14 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.toandoan.luatgiaothong.data.source.AuthenicationDataSource;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
+
+import java.util.List;
 
 /**
  * Created by framgia on 10/05/2017.
@@ -104,6 +109,34 @@ public class AuthenicationRemoteDataSource extends BaseAuthRemoteDataSource
     }
 
     /**
+     * Login with facebook using acccess token
+     *
+     * @param token
+     * @param callback
+     */
+    @Override
+    public void signIn(AccessToken token, final DataCallback<FirebaseUser> callback) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mFirebaseAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            callback.onGetDataSuccess(task.getResult().getUser());
+                        } else {
+                            callback.onGetDataFailed(task.getException().getMessage());
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onGetDataFailed(e.getMessage());
+                    }
+                });
+    }
+
+    /**
      * Get current firebase user
      *
      * @param callback
@@ -127,6 +160,20 @@ public class AuthenicationRemoteDataSource extends BaseAuthRemoteDataSource
     public void signOut(GoogleApiClient googleApiClient, DataCallback<FirebaseUser> callback) {
         if (googleApiClient != null) {
             Auth.GoogleSignInApi.signOut(googleApiClient);
+        }
+        signOut(callback);
+    }
+
+    /**
+     * Signout with facebook
+     *
+     * @param loginManager
+     * @param callback
+     */
+    @Override
+    public void signOut(LoginManager loginManager, DataCallback<FirebaseUser> callback) {
+        if (loginManager != null) {
+            loginManager.logOut();
         }
         signOut(callback);
     }
