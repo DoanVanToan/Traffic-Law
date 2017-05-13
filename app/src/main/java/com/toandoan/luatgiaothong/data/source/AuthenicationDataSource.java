@@ -2,6 +2,8 @@ package com.toandoan.luatgiaothong.data.source;
 
 import android.net.Uri;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,9 +21,13 @@ public interface AuthenicationDataSource {
 
         void signIn(GoogleSignInAccount account, DataCallback<FirebaseUser> callback);
 
+        void signIn(AccessToken token, DataCallback<FirebaseUser> callback);
+
         void getCurrentUser(DataCallback<FirebaseUser> callBack);
 
         void signOut(GoogleApiClient googleApiClient, DataCallback<FirebaseUser> callback);
+
+        void signOut(LoginManager loginManager, DataCallback<FirebaseUser> callback);
 
         void signOut(DataCallback<FirebaseUser> callback);
 

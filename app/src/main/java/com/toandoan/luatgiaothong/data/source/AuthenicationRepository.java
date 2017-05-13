@@ -2,6 +2,8 @@ package com.toandoan.luatgiaothong.data.source;
 
 import android.net.Uri;
 
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +32,10 @@ public class AuthenicationRepository {
         mRemoteDataSource.signIn(account, callback);
     }
 
+    public void signIn(AccessToken accessToken, DataCallback<FirebaseUser> callback) {
+        mRemoteDataSource.signIn(accessToken, callback);
+    }
+
     public void getCurrentUser(DataCallback<FirebaseUser> callback) {
         mRemoteDataSource.getCurrentUser(callback);
     }
@@ -38,7 +44,11 @@ public class AuthenicationRepository {
         mRemoteDataSource.signOut(googleApiClient, callback);
     }
 
-    public void signOut(DataCallback callback) {
+    public void signOut(LoginManager instance, DataCallback callback) {
+        mRemoteDataSource.signOut(instance, callback);
+    }
+
+    public void signOut(DataCallback callback){
         mRemoteDataSource.signOut(callback);
     }
 

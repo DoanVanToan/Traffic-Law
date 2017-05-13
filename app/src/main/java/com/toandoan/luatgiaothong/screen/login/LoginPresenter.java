@@ -2,6 +2,7 @@ package com.toandoan.luatgiaothong.screen.login;
 
 import android.text.TextUtils;
 
+import com.facebook.AccessToken;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
@@ -15,10 +16,12 @@ final class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.ViewModel mViewModel;
     private AuthenicationRepository mRepository;
+    private DataCallback<FirebaseUser> mSignInCallback;
 
     public LoginPresenter(LoginContract.ViewModel viewModel, AuthenicationRepository repository) {
         mViewModel = viewModel;
         mRepository = repository;
+        initSignInCallback();
     }
 
     @Override
@@ -34,7 +37,22 @@ final class LoginPresenter implements LoginContract.Presenter {
                 mViewModel.onGetCurrentUserError(msg);
             }
         });
+    }
 
+    private void initSignInCallback(){
+        mSignInCallback = new DataCallback<FirebaseUser>() {
+            @Override
+            public void onGetDataSuccess(FirebaseUser data) {
+                mViewModel.onGetUserSuccessful(data);
+                mViewModel.dismissDialog();
+            }
+
+            @Override
+            public void onGetDataFailed(String msg) {
+                mViewModel.dismissDialog();
+                mViewModel.onLoginError(msg);
+            }
+        };
     }
 
     @Override
@@ -54,37 +72,18 @@ final class LoginPresenter implements LoginContract.Presenter {
         }
 
         mViewModel.showDialog();
-        mRepository.signIn(email, password, new DataCallback<FirebaseUser>() {
-
-            @Override
-            public void onGetDataSuccess(FirebaseUser data) {
-                mViewModel.dismissDialog();
-                mViewModel.onGetUserSuccessful(data);
-            }
-
-            @Override
-            public void onGetDataFailed(String msg) {
-                mViewModel.dismissDialog();
-                mViewModel.onLoginError(msg);
-            }
-        });
+        mRepository.signIn(email, password, mSignInCallback);
     }
 
     @Override
     public void login(GoogleSignInAccount account) {
         mViewModel.showDialog();
-        mRepository.signIn(account, new DataCallback<FirebaseUser>() {
-            @Override
-            public void onGetDataSuccess(FirebaseUser data) {
-                mViewModel.onGetUserSuccessful(data);
-                mViewModel.dismissDialog();
-            }
+        mRepository.signIn(account, mSignInCallback);
+    }
 
-            @Override
-            public void onGetDataFailed(String msg) {
-                mViewModel.dismissDialog();
-                mViewModel.onLoginError(msg);
-            }
-        });
+    @Override
+    public void login(AccessToken accessToken) {
+        mViewModel.showDialog();
+        mRepository.signIn(accessToken, mSignInCallback);
     }
 }

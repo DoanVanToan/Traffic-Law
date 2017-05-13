@@ -5,7 +5,14 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
@@ -18,7 +25,11 @@ import com.toandoan.luatgiaothong.utils.navigator.Navigator;
  */
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
+    private static final String[] FACEBOOK_PERMISIONS = {"email", "public_profile"};
+
     private LoginContract.ViewModel mViewModel;
+    private LoginButton mLoginButton;
+    private CallbackManager mCallbackManager;
 
     public static Intent getInstance(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -41,8 +52,33 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.setViewModel((LoginViewModel) mViewModel);
         binding.signInButton.setOnClickListener(this);
-
+        mLoginButton = binding.loginButton;
         getSupportActionBar().hide();
+
+        initFacebookSDK();
+    }
+
+    private void initFacebookSDK() {
+        mCallbackManager = CallbackManager.Factory.create();
+        mLoginButton.setReadPermissions(FACEBOOK_PERMISIONS);
+        mLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                if (loginResult == null) return;
+                AccessToken accessToken = loginResult.getAccessToken();
+                mViewModel.onLoginFacebookSuccess(accessToken);
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(LoginActivity.this, R.string.login_facebook_cancel, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -61,6 +97,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mViewModel.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
