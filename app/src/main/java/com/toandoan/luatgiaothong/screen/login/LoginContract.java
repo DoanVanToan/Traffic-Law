@@ -1,5 +1,8 @@
 package com.toandoan.luatgiaothong.screen.login;
 
+import android.content.Intent;
+
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BasePresenter;
 import com.toandoan.luatgiaothong.BaseViewModel;
@@ -26,11 +29,15 @@ interface LoginContract {
 
         void onLoginClick();
 
+        void onLoginGoogleClick();
+
         void onForgotPasswordClick();
 
         void onEmailEmpty();
 
         void onPasswordEmpty();
+
+        void onActivityResult(int requestCode, int resultCode, Intent data);
     }
 
     /**
@@ -38,5 +45,7 @@ interface LoginContract {
      */
     interface Presenter extends BasePresenter {
         void login(String email, String password);
+
+        void login(GoogleSignInAccount account);
     }
 }

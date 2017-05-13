@@ -5,6 +5,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.net.Uri;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.screen.login.LoginActivity;
@@ -19,12 +20,13 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     private MainContract.Presenter mPresenter;
     private Navigator mNavigator;
     private Context mContext;
-
+    private MainActivity mActivity;
     private String mUserEmail;
     private Uri mUserPhoto;
 
     public MainViewModel(Context context, Navigator navigator) {
         mContext = context;
+        mActivity = (MainActivity) context;
         mNavigator = navigator;
     }
 
@@ -62,6 +64,11 @@ public class MainViewModel extends BaseObservable implements MainContract.ViewMo
     @Override
     public void onSignOutFailed(String msg) {
 
+    }
+
+    @Override
+    public GoogleApiClient getGoogleApiCliennt() {
+        return mActivity.getGoogleApiClient();
     }
 
     @Bindable

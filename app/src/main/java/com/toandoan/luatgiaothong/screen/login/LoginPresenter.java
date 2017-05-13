@@ -2,6 +2,7 @@ package com.toandoan.luatgiaothong.screen.login;
 
 import android.text.TextUtils;
 
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
@@ -53,12 +54,30 @@ final class LoginPresenter implements LoginContract.Presenter {
         }
 
         mViewModel.showDialog();
-        mRepository.login(email, password, new DataCallback<FirebaseUser>() {
+        mRepository.signIn(email, password, new DataCallback<FirebaseUser>() {
 
             @Override
             public void onGetDataSuccess(FirebaseUser data) {
                 mViewModel.dismissDialog();
                 mViewModel.onGetUserSuccessful(data);
+            }
+
+            @Override
+            public void onGetDataFailed(String msg) {
+                mViewModel.dismissDialog();
+                mViewModel.onLoginError(msg);
+            }
+        });
+    }
+
+    @Override
+    public void login(GoogleSignInAccount account) {
+        mViewModel.showDialog();
+        mRepository.signIn(account, new DataCallback<FirebaseUser>() {
+            @Override
+            public void onGetDataSuccess(FirebaseUser data) {
+                mViewModel.onGetUserSuccessful(data);
+                mViewModel.dismissDialog();
             }
 
             @Override

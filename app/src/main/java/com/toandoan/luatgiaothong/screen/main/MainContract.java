@@ -1,5 +1,6 @@
 package com.toandoan.luatgiaothong.screen.main;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BasePresenter;
 import com.toandoan.luatgiaothong.BaseViewModel;
@@ -19,6 +20,8 @@ interface MainContract {
         void onSignOutSuccess();
 
         void onSignOutFailed(String msg);
+
+        GoogleApiClient getGoogleApiCliennt();
     }
 
     /**

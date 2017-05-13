@@ -7,9 +7,10 @@
     <string name="user_name">User name</string>
     <string name="password">Password</string>
     <string name="action_login">Login</string>
-    <string name="action_register">Register</string>
+    <string name="action_register">Sign Up</string>
+    <string name="title_register">New here? Sign Up</string>
     <string name="confirrm_password">Confirm password</string>
-    <string name="forgot_password">Forgot your password?</string>
+    <string name="forgot_password">Forgot password?</string>
     <string name="title_login">Already register. Login now!</string>
     <string name="empty_email">Empty email</string>
     <string name="empty_password">Empty password</string>
@@ -31,5 +32,6 @@
     <string name="title_edit">Pls enter your name and your photo to finish register account!</string>
     <string name="error_upload_file">Upload image error, pls try again!</string>
     <string name="progress_uploading">Uploading...</string>
+    <string name="title_or">Or</string>
 
 </resources>

@@ -1,7 +1,12 @@
 package com.toandoan.luatgiaothong;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.toandoan.luatgiaothong.data.source.local.realm.DataLocalMigration;
 import com.toandoan.luatgiaothong.data.source.remote.api.service.AppServiceClient;
 
@@ -33,4 +38,5 @@ public class AppApplication extends Application {
         Realm realm = Realm.getDefaultInstance(); // Automatically run migration if needed
         realm.close();
     }
+
 }
