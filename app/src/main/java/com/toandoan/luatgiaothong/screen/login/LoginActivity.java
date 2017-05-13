@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -16,6 +15,7 @@ import com.facebook.login.widget.LoginButton;
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.source.AuthenicationRepository;
+import com.toandoan.luatgiaothong.data.source.local.sharedprf.SharedPrefsImpl;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.databinding.ActivityLoginBinding;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
@@ -24,9 +24,7 @@ import com.toandoan.luatgiaothong.utils.navigator.Navigator;
  * Login Screen.
  */
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
-
-    private static final String[] FACEBOOK_PERMISIONS = {"email", "public_profile"};
-
+    private static final String[] FACEBOOK_PERMISIONS = { "email", "public_profile" };
     private LoginContract.ViewModel mViewModel;
     private LoginButton mLoginButton;
     private CallbackManager mCallbackManager;
@@ -40,12 +38,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        AuthenicationRepository repository = new AuthenicationRepository(
-                new AuthenicationRemoteDataSource());
-
+        AuthenicationRepository repository =
+                new AuthenicationRepository(new AuthenicationRemoteDataSource());
         mViewModel = new LoginViewModel(this, new Navigator(this));
-        LoginContract.Presenter presenter = new LoginPresenter(mViewModel, repository);
+
+        LoginContract.Presenter presenter =
+                new LoginPresenter(mViewModel, repository, new SharedPrefsImpl(this));
         mViewModel.setPresenter(presenter);
 
         ActivityLoginBinding binding =
@@ -53,8 +51,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         binding.setViewModel((LoginViewModel) mViewModel);
         binding.signInButton.setOnClickListener(this);
         mLoginButton = binding.loginButton;
-        getSupportActionBar().hide();
 
+        getSupportActionBar().hide();
         initFacebookSDK();
     }
 
@@ -71,7 +69,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             @Override
             public void onCancel() {
-                Toast.makeText(LoginActivity.this, R.string.login_facebook_cancel, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.login_facebook_cancel,
+                        Toast.LENGTH_SHORT).show();
             }
 
             @Override

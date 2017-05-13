@@ -41,13 +41,17 @@ interface LoginContract {
         void onActivityResult(int requestCode, int resultCode, Intent data);
 
         void onLoginFacebookSuccess(AccessToken accessToken);
+
+        void onGetLastEmail(String s);
+
+        void onGetLastPassword(String s);
     }
 
     /**
      * Presenter.
      */
     interface Presenter extends BasePresenter {
-        void login(String email, String password);
+        void login(String email, String password, boolean isRememberAccount);
 
         void login(GoogleSignInAccount account);
 

@@ -35,5 +35,6 @@
     <string name="title_or">Or</string>
     <string name="facebook_app_id">294623550995501</string>
     <string name="login_facebook_cancel">Login cancel!</string>
+    <string name="title_remember_account">Remember me.</string>
 
 </resources>
