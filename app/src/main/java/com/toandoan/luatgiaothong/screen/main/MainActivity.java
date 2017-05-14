@@ -50,15 +50,15 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (mTabLayout.getTabAt(1).getIcon() == null) {
-                    mTabLayout.getTabAt(1).setIcon(R.drawable.ic_user);
+                    mTabLayout.getTabAt(1).setIcon(R.drawable.ic_profile);
                 }
                 
                 switch (tab.getPosition()) {
                     case TIME_LINE:
-                        tab.setIcon(R.drawable.ic_home_selected);
+                        tab.setIcon(R.drawable.ic_timeline_selected);
                         break;
                     case PROFILE:
-                        tab.setIcon(R.drawable.ic_user_selected);
+                        tab.setIcon(R.drawable.ic_profile_selected);
                         break;
                 }
 
@@ -68,10 +68,10 @@ public class MainActivity extends BaseActivity {
             public void onTabUnselected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
                     case TIME_LINE:
-                        tab.setIcon(R.drawable.ic_home);
+                        tab.setIcon(R.drawable.ic_timeline);
                         break;
                     case PROFILE:
-                        tab.setIcon(R.drawable.ic_user);
+                        tab.setIcon(R.drawable.ic_profile);
                         break;
                 }
             }

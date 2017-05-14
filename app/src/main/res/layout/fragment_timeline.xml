@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     >
 
     <data>
@@ -20,5 +20,8 @@
         android:orientation="vertical"
         tools:context="com.toandoan.luatgiaothong.screen.timeline.TimelineActivity"
         >
+        <include
+            bind:viewModel="@{viewModel}"
+            layout="@layout/timeline_header"/>
     </LinearLayout>
 </layout>
