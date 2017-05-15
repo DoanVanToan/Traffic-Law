@@ -1,7 +1,5 @@
 package com.toandoan.luatgiaothong.screen.profile;
 
-;
-
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.toandoan.luatgiaothong.BaseFragment;
 import com.toandoan.luatgiaothong.R;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.databinding.FragmentProfileBinding;
+
+;
 
 /**
  * Profile Screen.
@@ -28,7 +30,9 @@ public class ProfileFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         mViewModel = new ProfileViewModel();
 
-        ProfileContract.Presenter presenter = new ProfilePresenter(mViewModel);
+        AuthenicationRepository repository =
+                new AuthenicationRepository(new AuthenicationRemoteDataSource());
+        ProfileContract.Presenter presenter = new ProfilePresenter(mViewModel, repository);
         mViewModel.setPresenter(presenter);
     }
 

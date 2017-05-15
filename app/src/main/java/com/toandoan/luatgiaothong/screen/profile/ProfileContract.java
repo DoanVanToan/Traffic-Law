@@ -1,6 +1,7 @@
 package com.toandoan.luatgiaothong.screen.profile;
 
-;import com.toandoan.luatgiaothong.BasePresenter;
+;import com.google.firebase.auth.FirebaseUser;
+import com.toandoan.luatgiaothong.BasePresenter;
 import com.toandoan.luatgiaothong.BaseViewModel;
 
 /**
@@ -11,6 +12,7 @@ interface ProfileContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+        void onGetUserSuccesss(FirebaseUser data);
     }
 
     /**

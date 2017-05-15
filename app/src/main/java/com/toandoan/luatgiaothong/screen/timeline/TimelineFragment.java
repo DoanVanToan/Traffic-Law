@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.toandoan.luatgiaothong.BaseFragment;
 import com.toandoan.luatgiaothong.R;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.databinding.FragmentTimelineBinding;
 
 /**
@@ -26,7 +28,9 @@ public class TimelineFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         mViewModel = new TimelineViewModel();
 
-        TimelineContract.Presenter presenter = new TimelinePresenter(mViewModel);
+        AuthenicationRepository repository =
+                new AuthenicationRepository(new AuthenicationRemoteDataSource());
+        TimelineContract.Presenter presenter = new TimelinePresenter(mViewModel, repository);
         mViewModel.setPresenter(presenter);
     }
 
