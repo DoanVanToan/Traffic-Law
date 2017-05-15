@@ -3,6 +3,7 @@ package com.toandoan.luatgiaothong.utils.binding;
 import android.content.Context;
 import android.database.Cursor;
 import android.databinding.BindingAdapter;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.design.widget.TabLayout;
@@ -13,10 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
 import com.toandoan.luatgiaothong.R;
-
 import java.io.File;
 
 /**
@@ -32,34 +31,36 @@ public final class BindingUtils {
     /**
      * setAdapter For RecyclerView
      */
-    @BindingAdapter({"recyclerAdapter"})
+    @BindingAdapter({ "recyclerAdapter" })
     public static void setAdapterForRecyclerView(RecyclerView recyclerView,
-                                                 RecyclerView.Adapter adapter) {
+            RecyclerView.Adapter adapter) {
         recyclerView.setAdapter(adapter);
     }
 
-    @BindingAdapter({"bind:adapter"})
-    public static void setViewPagerAdapter(ViewPager viewPager,
-                                           FragmentPagerAdapter adapter) {
+    @BindingAdapter({ "bind:adapter" })
+    public static void setViewPagerAdapter(ViewPager viewPager, FragmentPagerAdapter adapter) {
         viewPager.setAdapter(adapter);
     }
 
-    @BindingAdapter({"bind:pager"})
+    @BindingAdapter({ "bind:pager" })
     public static void setViewPagerTabs(TabLayout tabLayout, ViewPager viewPager) {
         tabLayout.setupWithViewPager(viewPager, true);
     }
 
-    @BindingAdapter({"bind:currentFragment"})
+    @BindingAdapter({ "bind:currentFragment" })
     public static void setCurrentViewPager(ViewPager viewPager, int currentPage) {
         viewPager.setCurrentItem(currentPage);
         viewPager.beginFakeDrag();
     }
 
-    @BindingAdapter("bind:imageUrl")
-    public static void loadImage(ImageView imageView, String url) {
+    @BindingAdapter({ "bind:imageUrl", "bind:imageError" })
+    public static void loadImage(ImageView imageView, String url, Drawable error) {
         Glide.with(imageView.getContext())
                 .load(url)
-                .placeholder(R.mipmap.ic_launcher)
+                .asBitmap()
+                .error(error)
+                .placeholder(error)
+                .centerCrop()
                 .into(imageView);
     }
 
@@ -90,15 +91,15 @@ public final class BindingUtils {
         return result;
     }
 
-    @BindingAdapter({"spinnerAdapter"})
+    @BindingAdapter({ "spinnerAdapter" })
     public static void setAdapterForSpinner(AppCompatSpinner spinner,
-                                            ArrayAdapter<String> adapter) {
+            ArrayAdapter<String> adapter) {
         spinner.setAdapter(adapter);
     }
 
     @BindingAdapter("layoutManager")
     public static void setLayoutManager(RecyclerView recyclerView,
-                                        LayoutManagers.LayoutManagerFactory layoutManagerFactory) {
+            LayoutManagers.LayoutManagerFactory layoutManagerFactory) {
         recyclerView.setLayoutManager(layoutManagerFactory.create(recyclerView));
     }
 
