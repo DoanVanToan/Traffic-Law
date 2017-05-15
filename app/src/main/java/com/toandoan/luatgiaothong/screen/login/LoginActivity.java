@@ -18,6 +18,7 @@ import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepositor
 import com.toandoan.luatgiaothong.data.source.local.sharedprf.SharedPrefsImpl;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.databinding.ActivityLoginBinding;
+import com.toandoan.luatgiaothong.utils.Utils;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
 /**
@@ -54,6 +55,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         getSupportActionBar().hide();
         initFacebookSDK();
+
+        Utils.getKeyHash(this);
     }
 
     private void initFacebookSDK() {

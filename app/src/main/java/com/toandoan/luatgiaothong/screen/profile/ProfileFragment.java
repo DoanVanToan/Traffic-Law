@@ -11,6 +11,8 @@ import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.databinding.FragmentProfileBinding;
+import com.toandoan.luatgiaothong.screen.main.MainActivity;
+import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
 ;
 
@@ -28,7 +30,8 @@ public class ProfileFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new ProfileViewModel();
+        mViewModel = new ProfileViewModel((MainActivity) getActivity(),
+                new Navigator(getActivity()));
 
         AuthenicationRepository repository =
                 new AuthenicationRepository(new AuthenicationRemoteDataSource());
