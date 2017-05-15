@@ -42,4 +42,6 @@
     <string name="timeline_hearder_location">Location</string>
     <string name="action_logout">Logout</string>
     <string name="msg_logout">Do you want logout?</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_profile">Profile</string>
 </resources>
