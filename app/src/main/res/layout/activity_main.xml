@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
@@ -19,26 +20,22 @@
         tools:context="com.toandoan.luatgiaothong.screen.main.MainActivity"
         >
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tab_layout"
-            bind:pager="@{viewPager}"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/white"
-            bind:tabIndicatorColor="@android:color/white"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:background="@android:color/darker_gray"
-            />
-        <android.support.v4.view.ViewPager
+        <com.toandoan.luatgiaothong.widget.UnSwipeViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical"
             bind:adapter="@{viewModel.pagerAdapter}"
+            />
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/navigation"
             />
 
     </LinearLayout>
