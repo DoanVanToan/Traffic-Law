@@ -5,10 +5,17 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import com.toandoan.luatgiaothong.BaseActivity;
 import com.toandoan.luatgiaothong.R;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
+import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.databinding.ActivityCreatePostBinding;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
+import com.toandoan.luatgiaothong.widget.autofit.AutoFitEditText;
+import com.toandoan.luatgiaothong.widget.autofit.AutoFitEditUtil;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -41,13 +48,19 @@ public class CreatePostActivity extends BaseActivity {
         getData();
 
         mViewModel = new CreatePostViewModel(this, new Navigator(this), mCreateType);
-
-        CreatePostContract.Presenter presenter = new CreatePostPresenter(mViewModel);
+        AuthenicationRepository repository =
+                new AuthenicationRepository(new AuthenicationRemoteDataSource());
+        CreatePostContract.Presenter presenter = new CreatePostPresenter(mViewModel, repository);
         mViewModel.setPresenter(presenter);
 
         ActivityCreatePostBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_create_post);
         binding.setViewModel((CreatePostViewModel) mViewModel);
+
+        getSupportActionBar().setTitle(R.string.title_create_post);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
 
     private void getData() {
@@ -55,6 +68,7 @@ public class CreatePostActivity extends BaseActivity {
         if (intent == null) return;
         mCreateType = intent.getExtras().getInt(EXTRA_CREATE_TYPE);
     }
+
 
     @Override
     protected void onStart() {
@@ -66,6 +80,22 @@ public class CreatePostActivity extends BaseActivity {
     protected void onStop() {
         mViewModel.onStop();
         super.onStop();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_create_post, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

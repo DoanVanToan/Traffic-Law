@@ -1,6 +1,8 @@
 package com.toandoan.luatgiaothong.screen.createPost;
 
 import android.content.Intent;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
@@ -8,6 +10,8 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.firebase.auth.FirebaseUser;
+import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 import java.util.List;
 
@@ -22,12 +26,15 @@ import static com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.Cr
  * Exposes the data to be used in the CreatePost screen.
  */
 
-public class CreatePostViewModel implements CreatePostContract.ViewModel {
+public class CreatePostViewModel extends BaseObservable implements CreatePostContract.ViewModel {
     public static final int PLACE_PICKER_REQUEST = 1;
     public static final int SELECT_IMAGE_REQUEST = 2;
     public static final int LIMIT_IMAGES = 10;
 
     private CreatePostContract.Presenter mPresenter;
+    private FirebaseUser mUser;
+    private String mUserUrl;
+    private String mUserName;
 
     @CreatePostActivity.CreateType
     private int mCreateType;
@@ -102,6 +109,18 @@ public class CreatePostViewModel implements CreatePostContract.ViewModel {
     }
 
     @Override
+    public void onGetCurrentUserSuccess(FirebaseUser data) {
+        mUser = data;
+        setUserName(data.getDisplayName());
+        setUserUrl(data.getPhotoUrl().toString());
+    }
+
+    @Override
+    public void onGetCurrentUserFailed(String msg) {
+
+    }
+
+    @Override
     public void onStop() {
         mPresenter.onStop();
     }
@@ -109,5 +128,25 @@ public class CreatePostViewModel implements CreatePostContract.ViewModel {
     @Override
     public void setPresenter(CreatePostContract.Presenter presenter) {
         mPresenter = presenter;
+    }
+
+    @Bindable
+    public String getUserUrl() {
+        return mUserUrl;
+    }
+
+    public void setUserUrl(String userUrl) {
+        mUserUrl = userUrl;
+        notifyPropertyChanged(BR.userUrl);
+    }
+
+    @Bindable
+    public String getUserName() {
+        return mUserName;
+    }
+
+    public void setUserName(String userName) {
+        mUserName = userName;
+        notifyPropertyChanged(BR.userName);
     }
 }
