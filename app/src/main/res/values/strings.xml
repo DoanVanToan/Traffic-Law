@@ -44,4 +44,5 @@
     <string name="msg_logout">Do you want logout?</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_profile">Profile</string>
+    <string name="google_app_key">AIzaSyCcNwaKr23yRRFZS9ZcgoxWKyNTUNqNu6g</string>
 </resources>
