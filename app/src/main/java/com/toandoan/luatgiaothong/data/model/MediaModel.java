@@ -1,5 +1,6 @@
 package com.toandoan.luatgiaothong.data.model;
 
+import android.databinding.BaseObservable;
 import android.support.annotation.IntDef;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +11,7 @@ import static com.toandoan.luatgiaothong.data.model.MediaModel.MediaType.VIDEO;
  * Created by framgia on 16/05/2017.
  */
 
-public class MediaModel {
+public class MediaModel extends BaseObservable{
     @SerializedName("id")
     private String mId;
     @SerializedName("url")
