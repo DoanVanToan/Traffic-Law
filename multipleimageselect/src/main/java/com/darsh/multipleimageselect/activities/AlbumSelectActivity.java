@@ -21,12 +21,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.darsh.multipleimageselect.R;
 import com.darsh.multipleimageselect.adapters.CustomAlbumSelectAdapter;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Album;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,7 +50,7 @@ public class AlbumSelectActivity extends HelperActivity {
     private final String[] projection = new String[]{
             MediaStore.Images.Media.BUCKET_ID,
             MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
-            MediaStore.Images.Media.DATA };
+            MediaStore.Images.Media.DATA, };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
