@@ -5,11 +5,14 @@ ext {
                   constraintLayout  : 'com.android.support.constraint:constraint-layout:1.0.1',
                   supportDesign     : 'com.android.support:design:25.2.0',
                   cardView          : 'com.android.support:cardview-v7:25.2.0',
-                  firebaseAuth      : 'com.google.firebase:firebase-auth:9.0.2',
-                  firebaseStorage   : 'com.google.firebase:firebase-storage:9.0.2',
-                  firebaseDataBase  : 'com.google.firebase:firebase-database:9.0.2',
+                  vector            : 'com.android.support:support-vector-drawable:25.3.1',
 
-                  googleAuth        : 'com.google.android.gms:play-services-auth:9.0.0',
+                  firebaseAuth      : 'com.google.firebase:firebase-auth:10.2.4',
+                  firebaseStorage   : 'com.google.firebase:firebase-storage:10.2.4',
+                  firebaseDataBase  : 'com.google.firebase:firebase-database:10.2.4',
+
+                  googleAuth        : 'com.google.android.gms:play-services-auth:10.2.4',
+                  googlePlace       : 'com.google.android.gms:play-services-places:10.2.4',
 
                   facebookAuth      : 'com.facebook.android:facebook-android-sdk:[4,5)' ,
 

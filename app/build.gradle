@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'realm-android'
-apply plugin: 'com.google.gms.google-services'
 
 def APP_ID = "com.toandoan.luatgiaothong";
 
@@ -37,6 +36,7 @@ dependencies {
   compile dependencies.supportDesign
   compile dependencies.constraintLayout
   compile dependencies.cardView
+  compile dependencies.vector
 
   compile dependencies.rxJava
   compile dependencies.rxAndroid
@@ -46,11 +46,15 @@ dependencies {
   compile dependencies.retrofitGson
   compile dependencies.loggingInterceptor
   compile dependencies.glide
+
   compile dependencies.circleImage
 
-  compile dependencies.firebaseAuth
   compile dependencies.googleAuth
+  compile dependencies.googlePlace
+
   compile dependencies.facebookAuth
+
+  compile dependencies.firebaseAuth
   compile dependencies.firebaseStorage
   compile dependencies.firebaseDataBase
 
@@ -60,6 +64,9 @@ dependencies {
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-  compile 'com.android.support:design:25.3.1'
-  compile 'com.android.support:support-vector-drawable:25.3.1'
+
+
+
 }
+apply plugin: 'com.google.gms.google-services'
+
