@@ -11,6 +11,7 @@ import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.databinding.FragmentTimelineBinding;
+import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
 /**
  * Timeline Screen.
@@ -26,7 +27,7 @@ public class TimelineFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = new TimelineViewModel();
+        mViewModel = new TimelineViewModel(getContext(), new Navigator(getActivity()));
 
         AuthenicationRepository repository =
                 new AuthenicationRepository(new AuthenicationRemoteDataSource());

@@ -1,10 +1,13 @@
 package com.toandoan.luatgiaothong.screen.timeline;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
+import com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity;
+import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
 /**
  * Exposes the data to be used in the Timeline screen.
@@ -13,10 +16,14 @@ import com.toandoan.luatgiaothong.BR;
 public class TimelineViewModel extends BaseObservable implements TimelineContract.ViewModel {
 
     private TimelineContract.Presenter mPresenter;
+    private Navigator mNavigator;
+    private Context mContext;
     private ObservableField<FirebaseUser> mUser = new ObservableField<>();
     private String mUserUrl;
 
-    public TimelineViewModel() {
+    public TimelineViewModel(Context context, Navigator navigator) {
+        mContext = context;
+        mNavigator = navigator;
     }
 
     @Override
@@ -38,6 +45,11 @@ public class TimelineViewModel extends BaseObservable implements TimelineContrac
     public void onGetUserSuccess(FirebaseUser data) {
         mUser.set(data);
         setUserUrl(data.getPhotoUrl().toString());
+    }
+
+    @Override
+    public void onCreateNewPostClick(@CreatePostActivity.CreateType int createType) {
+        mNavigator.startActivity(CreatePostActivity.getInstance(mContext, createType));
     }
 
     public ObservableField<FirebaseUser> getUser() {
