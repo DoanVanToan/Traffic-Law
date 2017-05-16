@@ -31,8 +31,7 @@ android {
 
 dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
-  Map<String, String> dependencies = rootProject.ext.dependencies;
-
+  Map<String, String> dependencies = rootProject.ext.dependencies
   compile dependencies.supportDesign
   compile dependencies.constraintLayout
   compile dependencies.cardView
@@ -40,13 +39,12 @@ dependencies {
 
   compile dependencies.rxJava
   compile dependencies.rxAndroid
-
   compile dependencies.retrofit2
   compile dependencies.retrofit2Adapter
   compile dependencies.retrofitGson
   compile dependencies.loggingInterceptor
-  compile dependencies.glide
 
+  compile dependencies.glide
   compile dependencies.circleImage
 
   compile dependencies.googleAuth
@@ -58,14 +56,13 @@ dependencies {
   compile dependencies.firebaseStorage
   compile dependencies.firebaseDataBase
 
+  compile project(':multipleimageselect')
   testCompile dependencies.junit
   testCompile dependencies.mockito
 
   androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-
-
 
 }
 apply plugin: 'com.google.gms.google-services'

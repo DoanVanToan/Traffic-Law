@@ -12,6 +12,7 @@ interface CreatePostContract {
      * View.
      */
     interface ViewModel extends BaseViewModel<Presenter> {
+
         void onActivityResult(int requestCode, int resultCode, Intent data);
     }
 
