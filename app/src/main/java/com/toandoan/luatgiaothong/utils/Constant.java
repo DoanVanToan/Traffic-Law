@@ -13,6 +13,6 @@ public class Constant {
         public static final int THREE_IMAGE = 3;
         public static final int FOUR_IMAGE = 4;
 
-        public static final String POST = "";
+        public static final String POST = "post";
     }
 }

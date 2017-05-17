@@ -21,6 +21,7 @@ import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.model.LocationModel;
 import com.toandoan.luatgiaothong.data.model.MediaModel;
 import com.toandoan.luatgiaothong.data.model.TimelineModel;
+import com.toandoan.luatgiaothong.data.model.UserModel;
 import com.toandoan.luatgiaothong.service.FirebaseUploadService;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     private static final String TAG = "CreatePostViewModel";
 
     private CreatePostContract.Presenter mPresenter;
-    private FirebaseUser mUser;
+    private UserModel mUser;
     private String mUserUrl;
     private String mUserName;
     private String mAddress;
@@ -114,7 +115,7 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     }
 
     private void updateTimelineModel() {
-//        mTimelineModel.setCreatedUser(mUser);
+        mTimelineModel.setCreatedUser(mUser);
         mTimelineModel.setCreatedAt(System.currentTimeMillis());
     }
 
@@ -211,9 +212,9 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     }
 
     @Override
-    public void onGetCurrentUserSuccess(FirebaseUser data) {
+    public void onGetCurrentUserSuccess(UserModel data) {
         mUser = data;
-        setUserName(data.getDisplayName());
+        setUserName(data.getUserName());
         setUserUrl(data.getPhotoUrl().toString());
     }
 
@@ -297,11 +298,11 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
         notifyPropertyChanged(BR.userName);
     }
 
-    public FirebaseUser getUser() {
+    public UserModel getUser() {
         return mUser;
     }
 
-    public void setUser(FirebaseUser user) {
+    public void setUser(UserModel user) {
         mUser = user;
     }
 

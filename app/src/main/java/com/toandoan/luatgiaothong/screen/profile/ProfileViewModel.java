@@ -10,6 +10,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.R;
+import com.toandoan.luatgiaothong.data.model.UserModel;
 import com.toandoan.luatgiaothong.screen.login.LoginActivity;
 import com.toandoan.luatgiaothong.screen.main.MainActivity;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
@@ -21,7 +22,7 @@ import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 public class ProfileViewModel extends BaseObservable implements ProfileContract.ViewModel {
 
     private ProfileContract.Presenter mPresenter;
-    private ObservableField<FirebaseUser> mUser = new ObservableField<>();
+    private ObservableField<UserModel> mUser = new ObservableField<>();
     private boolean mIsEditing = true;
     private boolean mIsAllowChangePassword = true;
     private MainActivity mActivity;
@@ -48,7 +49,7 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
     }
 
     @Override
-    public void onGetUserSuccesss(FirebaseUser data) {
+    public void onGetUserSuccesss(UserModel data) {
         // TODO: 5/14/2017 later
         mUser.set(data);
     }
@@ -102,7 +103,7 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
 
     @Bindable
     public String getUserName() {
-        return mUser.get() != null ? mUser.get().getDisplayName() : "";
+        return mUser.get() != null ? mUser.get().getUserName() : "";
     }
 
     @Bindable
@@ -130,11 +131,11 @@ public class ProfileViewModel extends BaseObservable implements ProfileContract.
         notifyPropertyChanged(BR.allowChangePassword);
     }
 
-    public ObservableField<FirebaseUser> getUser() {
+    public ObservableField<UserModel> getUser() {
         return mUser;
     }
 
-    public void setUser(ObservableField<FirebaseUser> user) {
+    public void setUser(ObservableField<UserModel> user) {
         mUser = user;
     }
 }

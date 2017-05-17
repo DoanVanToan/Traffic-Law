@@ -16,11 +16,16 @@ import static com.toandoan.luatgiaothong.data.model.MediaModel.MediaType.VIDEO;
  */
 
 public class MediaModel extends BaseObservable implements Parcelable {
+    @SerializedName("id")
     private String mId;
+    @SerializedName("url")
     private String mUrl;
+    @SerializedName("type")
     @MediaType
     private int mType;
+    @SerializedName("name")
     private String mName;
+    @SerializedName("upload_percent")
     private int mUploadPercent;
 
     public MediaModel() {

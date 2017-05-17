@@ -4,6 +4,7 @@ import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.toandoan.luatgiaothong.data.model.UserModel;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import java.util.List;
@@ -32,7 +33,7 @@ final class ProfilePresenter implements ProfileContract.Presenter {
             @Override
             public void onGetDataSuccess(FirebaseUser data) {
                 mUser = data;
-                mViewModel.onGetUserSuccesss(data);
+                mViewModel.onGetUserSuccesss(new UserModel(data));
             }
 
             @Override

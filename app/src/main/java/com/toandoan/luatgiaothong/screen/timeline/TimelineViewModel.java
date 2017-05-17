@@ -6,6 +6,7 @@ import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
+import com.toandoan.luatgiaothong.data.model.UserModel;
 import com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
@@ -18,7 +19,7 @@ public class TimelineViewModel extends BaseObservable implements TimelineContrac
     private TimelineContract.Presenter mPresenter;
     private Navigator mNavigator;
     private Context mContext;
-    private ObservableField<FirebaseUser> mUser = new ObservableField<>();
+    private ObservableField<UserModel> mUser = new ObservableField<>();
     private String mUserUrl;
 
     public TimelineViewModel(Context context, Navigator navigator) {
@@ -42,7 +43,7 @@ public class TimelineViewModel extends BaseObservable implements TimelineContrac
     }
 
     @Override
-    public void onGetUserSuccess(FirebaseUser data) {
+    public void onGetUserSuccess(UserModel data) {
         mUser.set(data);
         setUserUrl(data.getPhotoUrl().toString());
     }
@@ -52,11 +53,11 @@ public class TimelineViewModel extends BaseObservable implements TimelineContrac
         mNavigator.startActivity(CreatePostActivity.getInstance(mContext, createType));
     }
 
-    public ObservableField<FirebaseUser> getUser() {
+    public ObservableField<UserModel> getUser() {
         return mUser;
     }
 
-    public void setUser(ObservableField<FirebaseUser> user) {
+    public void setUser(ObservableField<UserModel> user) {
         mUser = user;
     }
 
