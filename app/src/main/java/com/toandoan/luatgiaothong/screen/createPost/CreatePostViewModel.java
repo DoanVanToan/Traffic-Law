@@ -12,6 +12,7 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
+import com.toandoan.luatgiaothong.data.model.LocationModel;
 import com.toandoan.luatgiaothong.data.model.MediaModel;
 import com.toandoan.luatgiaothong.data.model.TimelineModel;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
@@ -38,6 +39,7 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     private FirebaseUser mUser;
     private String mUserUrl;
     private String mUserName;
+    private String mAddress;
 
     @CreatePostActivity.CreateType
     private int mCreateType;
@@ -60,7 +62,7 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
         mPresenter.onStart();
     }
 
-    private void onpenPlacePicker() {
+    private void openPlacePicker() {
         try {
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
             mNavigator.startActivityForResult(builder.build(mActivity), PLACE_PICKER_REQUEST);
@@ -80,7 +82,7 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     public void getData() {
         switch (mCreateType) {
             case LOCATION:
-                onpenPlacePicker();
+                openPlacePicker();
                 break;
             case IMAGE:
                 selectImage();
@@ -100,8 +102,12 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
         switch (requestCode) {
             case PLACE_PICKER_REQUEST:
                 Place place = PlacePicker.getPlace(data, mActivity);
-                String toastMsg = String.format("Place: %s", place.getName());
-                mNavigator.showToast(toastMsg);
+                LocationModel locationModel = new LocationModel();
+                locationModel.setAddress(place.getAddress().toString());
+                locationModel.setLat(place.getLatLng().latitude);
+                locationModel.setLng(place.getLatLng().longitude);
+                setAddress(place.getAddress().toString());
+                mTimelineModel.setLocation(locationModel);
                 break;
             case SELECT_IMAGE_REQUEST:
                 List<Image> images =
@@ -149,6 +155,11 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     }
 
     @Override
+    public void onPlacePickerClick() {
+        openPlacePicker();
+    }
+
+    @Override
     public void onStop() {
         mPresenter.onStop();
     }
@@ -176,5 +187,23 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     public void setUserName(String userName) {
         mUserName = userName;
         notifyPropertyChanged(BR.userName);
+    }
+
+    public FirebaseUser getUser() {
+        return mUser;
+    }
+
+    public void setUser(FirebaseUser user) {
+        mUser = user;
+    }
+
+    @Bindable
+    public String getAddress() {
+        return mAddress;
+    }
+
+    public void setAddress(String address) {
+        mAddress = address;
+        notifyPropertyChanged(BR.address);
     }
 }
