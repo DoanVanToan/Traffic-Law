@@ -8,15 +8,10 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Comment {
-    @SerializedName("id")
     private String mId;
-    @SerializedName("content")
     private String mContent;
-    @SerializedName("created_at")
     private String mCreatedAt;
-    @SerializedName("modified_at")
     private String mModifiedAt;
-    @SerializedName("user")
     private FirebaseUser mCreateUser;
 
     public String getId() {

@@ -9,27 +9,16 @@ import java.util.List;
  */
 
 public class TimelineModel {
-    @SerializedName("id")
     private String mId;
-    @SerializedName("content")
     private String mContent;
-    @SerializedName("created_user")
     private FirebaseUser mCreatedUser;
-    @SerializedName("created_at")
     private long mCreatedAt;
-    @SerializedName("modified_at")
     private long mModifiedAt;
-    @SerializedName("location")
     private LocationModel mLocation;
-    @SerializedName("medias")
     private List<MediaModel> mMediaModels;
-    @SerializedName("comments")
     private List<Comment> mComments;
-    @SerializedName("likes")
     private List<FirebaseUser> mLikeUser;
-    @SerializedName("dishlikes")
     private List<FirebaseUser> mDishLikeUser;
-    @SerializedName("reports")
     private List<FirebaseUser> mReportUser;
 
     public String getId() {

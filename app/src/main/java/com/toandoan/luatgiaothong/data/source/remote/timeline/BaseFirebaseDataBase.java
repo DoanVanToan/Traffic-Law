@@ -8,8 +8,8 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 
 public class BaseFirebaseDataBase {
-    private FirebaseDatabase mDatabase;
-    private DatabaseReference mReference;
+    protected FirebaseDatabase mDatabase;
+    protected DatabaseReference mReference;
 
     public BaseFirebaseDataBase(String reference) {
         mDatabase = FirebaseDatabase.getInstance();

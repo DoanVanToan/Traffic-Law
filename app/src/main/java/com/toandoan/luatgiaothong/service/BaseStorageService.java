@@ -40,8 +40,8 @@ public abstract class BaseStorageService extends Service {
         // If there are no tasks left, stop the service
         if (mNumTasks <= 0) {
             Log.d(TAG, "stopping");
-            stopSelf();
             broadcastUploadFinnish();
+            stopSelf();
         }
     }
 

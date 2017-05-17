@@ -16,6 +16,8 @@ import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.model.MediaModel;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
+import com.toandoan.luatgiaothong.data.source.remote.timeline.TimelineRemoteDataSource;
+import com.toandoan.luatgiaothong.data.source.remote.timeline.TimelineRepository;
 import com.toandoan.luatgiaothong.databinding.ActivityCreatePostBinding;
 import com.toandoan.luatgiaothong.databinding.ItemPostFirstTypeBinding;
 import com.toandoan.luatgiaothong.databinding.ItemPostFourTypeBinding;
@@ -63,7 +65,10 @@ public class CreatePostActivity extends BaseActivity {
         mViewModel = new CreatePostViewModel(this, new Navigator(this), mCreateType);
         AuthenicationRepository repository =
                 new AuthenicationRepository(new AuthenicationRemoteDataSource());
-        CreatePostContract.Presenter presenter = new CreatePostPresenter(mViewModel, repository);
+        TimelineRepository timelineRepository =
+                new TimelineRepository(new TimelineRemoteDataSource());
+        CreatePostContract.Presenter presenter =
+                new CreatePostPresenter(mViewModel, repository, timelineRepository);
         mViewModel.setPresenter(presenter);
 
         ActivityCreatePostBinding binding =
