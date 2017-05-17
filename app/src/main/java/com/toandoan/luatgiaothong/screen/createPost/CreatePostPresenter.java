@@ -2,6 +2,7 @@ package com.toandoan.luatgiaothong.screen.createPost;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.data.model.TimelineModel;
+import com.toandoan.luatgiaothong.data.model.UserModel;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 import com.toandoan.luatgiaothong.data.source.remote.timeline.TimelineRepository;
@@ -31,7 +32,7 @@ final class CreatePostPresenter implements CreatePostContract.Presenter {
         mAuthenicationRepository.getCurrentUser(new DataCallback<FirebaseUser>() {
             @Override
             public void onGetDataSuccess(FirebaseUser data) {
-                mViewModel.onGetCurrentUserSuccess(data);
+                mViewModel.onGetCurrentUserSuccess(new UserModel(data));
             }
 
             @Override

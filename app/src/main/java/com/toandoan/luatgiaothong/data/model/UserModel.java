@@ -2,7 +2,7 @@ package com.toandoan.luatgiaothong.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
+import com.google.firebase.auth.FirebaseUser;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,30 +10,33 @@ import com.google.gson.annotations.SerializedName;
  *
  */
 
-public class User implements Parcelable {
-    public static final Creator<User> CREATOR = new Creator<User>() {
+public class UserModel implements Parcelable {
+    public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
         @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
+        public UserModel createFromParcel(Parcel in) {
+            return new UserModel(in);
         }
 
         @Override
-        public User[] newArray(int size) {
-            return new User[size];
+        public UserModel[] newArray(int size) {
+            return new UserModel[size];
         }
     };
     @SerializedName("id")
     @Expose
-    private Integer mId;
-    @SerializedName("name")
+    private String mId;
+    @SerializedName("user_name")
     @Expose
-    private String mName;
+    private String mUserName;
     @SerializedName("email")
     @Expose
     private String mEmail;
     @SerializedName("authentication_token")
     @Expose
     private String mToken;
+    @SerializedName("photo_url")
+    @Expose
+    private String mPhotoUrl;
     @SerializedName("created_at")
     @Expose
     private String mCreatedAt;
@@ -41,21 +44,30 @@ public class User implements Parcelable {
     @Expose
     private String mUpdatedAt;
 
-    protected User(Parcel in) {
-        mName = in.readString();
+    public UserModel(FirebaseUser user) {
+        mUserName = user.getDisplayName();
+        mPhotoUrl = user.getPhotoUrl().toString();
+        mEmail = user.getEmail();
+        mId = user.getUid();
+    }
+
+    protected UserModel(Parcel in) {
+        mUserName = in.readString();
         mEmail = in.readString();
         mToken = in.readString();
         mCreatedAt = in.readString();
         mUpdatedAt = in.readString();
+        mPhotoUrl = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(mName);
+        dest.writeString(mUserName);
         dest.writeString(mEmail);
         dest.writeString(mToken);
         dest.writeString(mCreatedAt);
         dest.writeString(mUpdatedAt);
+        dest.writeString(mPhotoUrl);
     }
 
     @Override
@@ -63,20 +75,20 @@ public class User implements Parcelable {
         return 0;
     }
 
-    public Integer getId() {
+    public String getId() {
         return mId;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         mId = id;
     }
 
-    public String getName() {
-        return mName;
+    public String getUserName() {
+        return mUserName;
     }
 
-    public void setName(String name) {
-        mName = name;
+    public void setUserName(String name) {
+        mUserName = name;
     }
 
     public String getEmail() {
@@ -109,5 +121,13 @@ public class User implements Parcelable {
 
     public void setUpdatedAt(String updatedAt) {
         mUpdatedAt = updatedAt;
+    }
+
+    public String getPhotoUrl() {
+        return mPhotoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        mPhotoUrl = photoUrl;
     }
 }

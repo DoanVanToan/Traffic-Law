@@ -1,6 +1,7 @@
 package com.toandoan.luatgiaothong.screen.timeline;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.toandoan.luatgiaothong.data.model.UserModel;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 
@@ -25,7 +26,7 @@ final class TimelinePresenter implements TimelineContract.Presenter {
         mAuthenicationRepository.getCurrentUser(new DataCallback<FirebaseUser>() {
             @Override
             public void onGetDataSuccess(FirebaseUser data) {
-                mViewModel.onGetUserSuccess(data);
+                mViewModel.onGetUserSuccess(new UserModel(data));
             }
 
             @Override

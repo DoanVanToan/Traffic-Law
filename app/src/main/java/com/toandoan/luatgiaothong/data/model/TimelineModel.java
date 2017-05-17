@@ -9,17 +9,28 @@ import java.util.List;
  */
 
 public class TimelineModel {
+    @SerializedName("id")
     private String mId;
+    @SerializedName("content")
     private String mContent;
-    private FirebaseUser mCreatedUser;
+    @SerializedName("created_user")
+    private UserModel mCreatedUser;
+    @SerializedName("created_at")
     private long mCreatedAt;
+    @SerializedName("modified_at")
     private long mModifiedAt;
+    @SerializedName("location")
     private LocationModel mLocation;
+    @SerializedName("media")
     private List<MediaModel> mMediaModels;
+    @SerializedName("comments")
     private List<Comment> mComments;
-    private List<FirebaseUser> mLikeUser;
-    private List<FirebaseUser> mDishLikeUser;
-    private List<FirebaseUser> mReportUser;
+    @SerializedName("likes")
+    private List<UserModel> mLikeUser;
+    @SerializedName("dish_like")
+    private List<UserModel> mDishLikeUser;
+    @SerializedName("report")
+    private List<UserModel> mReportUser;
 
     public String getId() {
         return mId;
@@ -37,11 +48,11 @@ public class TimelineModel {
         mContent = content;
     }
 
-    public FirebaseUser getCreatedUser() {
+    public UserModel getCreatedUser() {
         return mCreatedUser;
     }
 
-    public void setCreatedUser(FirebaseUser createdUser) {
+    public void setCreatedUser(UserModel createdUser) {
         mCreatedUser = createdUser;
     }
 
@@ -85,27 +96,27 @@ public class TimelineModel {
         mComments = comments;
     }
 
-    public List<FirebaseUser> getLikeUser() {
+    public List<UserModel> getLikeUser() {
         return mLikeUser;
     }
 
-    public void setLikeUser(List<FirebaseUser> likeUser) {
+    public void setLikeUser(List<UserModel> likeUser) {
         mLikeUser = likeUser;
     }
 
-    public List<FirebaseUser> getDishLikeUser() {
+    public List<UserModel> getDishLikeUser() {
         return mDishLikeUser;
     }
 
-    public void setDishLikeUser(List<FirebaseUser> dishLikeUser) {
+    public void setDishLikeUser(List<UserModel> dishLikeUser) {
         mDishLikeUser = dishLikeUser;
     }
 
-    public List<FirebaseUser> getReportUser() {
+    public List<UserModel> getReportUser() {
         return mReportUser;
     }
 
-    public void setReportUser(List<FirebaseUser> reportUser) {
+    public void setReportUser(List<UserModel> reportUser) {
         mReportUser = reportUser;
     }
 }

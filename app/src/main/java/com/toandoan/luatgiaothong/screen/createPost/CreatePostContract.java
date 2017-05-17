@@ -6,6 +6,7 @@ import com.toandoan.luatgiaothong.BasePresenter;
 import com.toandoan.luatgiaothong.BaseViewModel;
 import com.toandoan.luatgiaothong.data.model.MediaModel;
 import com.toandoan.luatgiaothong.data.model.TimelineModel;
+import com.toandoan.luatgiaothong.data.model.UserModel;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ interface CreatePostContract {
 
         void onActivityResult(int requestCode, int resultCode, Intent data);
 
-        void onGetCurrentUserSuccess(FirebaseUser data);
+        void onGetCurrentUserSuccess(UserModel data);
 
         void onGetCurrentUserFailed(String msg);
 
