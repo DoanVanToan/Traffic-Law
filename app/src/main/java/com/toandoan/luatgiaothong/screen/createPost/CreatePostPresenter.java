@@ -1,6 +1,7 @@
 package com.toandoan.luatgiaothong.screen.createPost;
 
 import com.google.firebase.auth.FirebaseUser;
+import com.toandoan.luatgiaothong.data.model.TimelineModel;
 import com.toandoan.luatgiaothong.data.source.callback.DataCallback;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
 
@@ -34,6 +35,11 @@ final class CreatePostPresenter implements CreatePostContract.Presenter {
                 mViewModel.onGetCurrentUserFailed(msg);
             }
         });
+    }
+
+    @Override
+    public void createPost(TimelineModel timelineModel) {
+
     }
 
     @Override

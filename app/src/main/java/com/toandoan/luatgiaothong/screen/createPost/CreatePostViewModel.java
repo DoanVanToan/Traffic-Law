@@ -1,8 +1,13 @@
 package com.toandoan.luatgiaothong.screen.createPost;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.net.Uri;
+import android.os.Parcelable;
+import android.support.v4.content.LocalBroadcastManager;
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
 import com.darsh.multipleimageselect.models.Image;
@@ -12,9 +17,11 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
+import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.model.LocationModel;
 import com.toandoan.luatgiaothong.data.model.MediaModel;
 import com.toandoan.luatgiaothong.data.model.TimelineModel;
+import com.toandoan.luatgiaothong.service.FirebaseUploadService;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +32,12 @@ import static com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.Cr
 import static com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.CreateType
         .TEXT_CONTENT;
 import static com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.CreateType.VIDEO;
+import static com.toandoan.luatgiaothong.service.BaseStorageService.POST_FOLDER;
+import static com.toandoan.luatgiaothong.service.FirebaseUploadService.ACTION_UPLOAD_MULTI_FILE;
+import static com.toandoan.luatgiaothong.service.FirebaseUploadService.EXTRA_FILES;
+import static com.toandoan.luatgiaothong.service.FirebaseUploadService.EXTRA_FOLDER;
+import static com.toandoan.luatgiaothong.service.FirebaseUploadService.EXTRA_MEDIA_MODEL;
+import static com.toandoan.luatgiaothong.service.FirebaseUploadService.EXTRA_URI;
 
 /**
  * Exposes the data to be used in the CreatePost screen.
@@ -34,6 +47,7 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     public static final int PLACE_PICKER_REQUEST = 1;
     public static final int SELECT_IMAGE_REQUEST = 2;
     public static final int LIMIT_IMAGES = 10;
+    private static final String TAG = "CreatePostViewModel";
 
     private CreatePostContract.Presenter mPresenter;
     private FirebaseUser mUser;
@@ -47,6 +61,8 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     private Navigator mNavigator;
 
     private TimelineModel mTimelineModel;
+    private BroadcastReceiver mReceiver;
+    private boolean mIsUploading;
 
     public CreatePostViewModel(CreatePostActivity activity, Navigator navigator,
             @CreatePostActivity.CreateType int createType) {
@@ -60,6 +76,63 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     @Override
     public void onStart() {
         mPresenter.onStart();
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                switch (intent.getAction()) {
+                    case FirebaseUploadService.UPLOAD_PROGRESS:
+                        int percent = intent.getExtras()
+                                .getInt(FirebaseUploadService.EXTRA_UPLOADED_PERCENT);
+                        MediaModel mediaModel = intent.getExtras().getParcelable(EXTRA_MEDIA_MODEL);
+                        mediaModel.setUploadPercent(percent);
+                        handleProgress(mediaModel);
+                        break;
+
+                    case FirebaseUploadService.UPLOAD_COMPLETE:
+                        mediaModel = intent.getExtras().getParcelable(EXTRA_MEDIA_MODEL);
+                        Uri downloadUri = (Uri) intent.getExtras().get(EXTRA_URI);
+                        mediaModel.setUrl(downloadUri.toString());
+                        handleFinnish(mediaModel);
+                        break;
+
+                    case FirebaseUploadService.UPLOAD_FINNISH_ALL:
+                        mIsUploading = false;
+                        mActivity.hideBottomSheet();
+                        mTimelineModel.setCreatedUser(mUser);
+                        mTimelineModel.setCreatedAt(System.currentTimeMillis());
+                        mPresenter.createPost(mTimelineModel);
+                        break;
+
+                    case FirebaseUploadService.UPLOAD_ERROR:
+                        mediaModel = intent.getExtras().getParcelable(EXTRA_MEDIA_MODEL);
+                        mNavigator.showToast(
+                                String.format(mActivity.getString(R.string.msg_upload_error),
+                                        mediaModel.getName()));
+                        break;
+                }
+            }
+        };
+
+        LocalBroadcastManager manager = LocalBroadcastManager.getInstance(mActivity);
+        manager.registerReceiver(mReceiver, FirebaseUploadService.getIntentFilter());
+    }
+
+    private void handleProgress(MediaModel mediaModel) {
+        for (MediaModel model : mTimelineModel.getMediaModels()) {
+            if (model.getId().equals(mediaModel.getId())) {
+                model.setUploadPercent(mediaModel.getUploadPercent());
+                return;
+            }
+        }
+    }
+
+    private void handleFinnish(MediaModel mediaModel) {
+        for (MediaModel model : mTimelineModel.getMediaModels()) {
+            if (model.getId().equals(mediaModel.getId())) {
+                model.setUrl(mediaModel.getUrl());
+                return;
+            }
+        }
     }
 
     private void openPlacePicker() {
@@ -86,8 +159,6 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
                 break;
             case IMAGE:
                 selectImage();
-                break;
-            case TEXT_CONTENT:
                 break;
             case VIDEO:
                 break;
@@ -127,6 +198,7 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
                 mediaModel.setId(String.valueOf(image.id));
                 mediaModel.setType(IMAGE);
                 mediaModel.setUrl(image.path);
+                mediaModel.setName(image.name);
 
                 if (mTimelineModel.getMediaModels() == null) {
                     mTimelineModel.setMediaModels(new ArrayList<MediaModel>());
@@ -160,8 +232,30 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     }
 
     @Override
+    public void onCreatePost() {
+        if (mTimelineModel.getMediaModels() != null
+                && mTimelineModel.getMediaModels().size() != 0) {
+            uploadFiles(mTimelineModel.getMediaModels());
+        }
+    }
+
+    @Override
+    public void uploadFiles(List<MediaModel> mediaModels) {
+        if (mIsUploading) return;
+        mIsUploading = true;
+        mActivity.startService(
+                new Intent(mActivity, FirebaseUploadService.class).putParcelableArrayListExtra(
+                        EXTRA_FILES, (ArrayList<? extends Parcelable>) mediaModels)
+                        .putExtra(EXTRA_FOLDER, POST_FOLDER)
+                        .setAction(ACTION_UPLOAD_MULTI_FILE));
+
+        mActivity.showUploadProgressView(mediaModels);
+    }
+
+    @Override
     public void onStop() {
         mPresenter.onStop();
+        LocalBroadcastManager.getInstance(mActivity).unregisterReceiver(mReceiver);
     }
 
     @Override
@@ -205,5 +299,13 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     public void setAddress(String address) {
         mAddress = address;
         notifyPropertyChanged(BR.address);
+    }
+
+    public TimelineModel getTimelineModel() {
+        return mTimelineModel;
+    }
+
+    public void setTimelineModel(TimelineModel timelineModel) {
+        mTimelineModel = timelineModel;
     }
 }
