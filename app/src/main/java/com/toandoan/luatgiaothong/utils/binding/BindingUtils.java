@@ -63,6 +63,15 @@ public final class BindingUtils {
                 .centerCrop()
                 .into(imageView);
     }
+    @BindingAdapter("bind:imageUrl")
+    public static void loadImage(ImageView imageView, String url) {
+        Glide.with(imageView.getContext())
+                .load(url)
+                .asBitmap()
+                .placeholder(R.mipmap.ic_launcher)
+                .centerCrop()
+                .into(imageView);
+    }
 
     @BindingAdapter("bind:imageUri")
     public static void loadImage(final ImageView imageView, Uri uri) {

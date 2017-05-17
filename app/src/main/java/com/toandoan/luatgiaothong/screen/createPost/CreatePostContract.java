@@ -19,6 +19,8 @@ interface CreatePostContract {
         void onGetCurrentUserSuccess(FirebaseUser data);
 
         void onGetCurrentUserFailed(String msg);
+
+        void onImagePickerClick();
     }
 
     /**

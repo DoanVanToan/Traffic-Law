@@ -12,7 +12,10 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
+import com.toandoan.luatgiaothong.data.model.MediaModel;
+import com.toandoan.luatgiaothong.data.model.TimelineModel;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -41,11 +44,14 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     private CreatePostActivity mActivity;
     private Navigator mNavigator;
 
+    private TimelineModel mTimelineModel;
+
     public CreatePostViewModel(CreatePostActivity activity, Navigator navigator,
             @CreatePostActivity.CreateType int createType) {
         mActivity = activity;
         mNavigator = navigator;
         mCreateType = createType;
+        mTimelineModel = new TimelineModel();
         getData();
     }
 
@@ -100,12 +106,29 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
             case SELECT_IMAGE_REQUEST:
                 List<Image> images =
                         data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
-
-                if (images != null) mNavigator.showToast(images.size() + "");
+                if (images == null || images.size() == 0) break;
+                addPostView(images);
                 break;
             default:
                 break;
         }
+    }
+
+    private void addPostView(List<Image> images) {
+        if (images != null) {
+            for (Image image : images) {
+                MediaModel mediaModel = new MediaModel();
+                mediaModel.setId(String.valueOf(image.id));
+                mediaModel.setType(IMAGE);
+                mediaModel.setUrl(image.path);
+
+                if (mTimelineModel.getMediaModels() == null) {
+                    mTimelineModel.setMediaModels(new ArrayList<MediaModel>());
+                }
+                mTimelineModel.getMediaModels().add(mediaModel);
+            }
+        }
+        mActivity.addPostView(mTimelineModel.getMediaModels());
     }
 
     @Override
@@ -118,6 +141,11 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     @Override
     public void onGetCurrentUserFailed(String msg) {
 
+    }
+
+    @Override
+    public void onImagePickerClick() {
+        selectImage();
     }
 
     @Override

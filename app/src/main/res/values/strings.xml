@@ -46,4 +46,5 @@
     <string name="title_profile">Profile</string>
     <string name="google_app_key">AIzaSyCcNwaKr23yRRFZS9ZcgoxWKyNTUNqNu6g</string>
     <string name="title_create_post">Create new post!</string>
+    <string name="item_format">+ %s</string>
 </resources>
