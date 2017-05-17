@@ -30,6 +30,10 @@ interface CreatePostContract {
         void onCreatePost();
 
         void uploadFiles(List<MediaModel> mediaModels);
+
+        void onCreatePostSuccess();
+
+        void onCreatePostFailed(String msg);
     }
 
     /**

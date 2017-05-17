@@ -29,8 +29,6 @@ import java.util.List;
 import static android.app.Activity.RESULT_OK;
 import static com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.CreateType.IMAGE;
 import static com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.CreateType.LOCATION;
-import static com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.CreateType
-        .TEXT_CONTENT;
 import static com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.CreateType.VIDEO;
 import static com.toandoan.luatgiaothong.service.BaseStorageService.POST_FOLDER;
 import static com.toandoan.luatgiaothong.service.FirebaseUploadService.ACTION_UPLOAD_MULTI_FILE;
@@ -98,8 +96,6 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
                     case FirebaseUploadService.UPLOAD_FINNISH_ALL:
                         mIsUploading = false;
                         mActivity.hideBottomSheet();
-                        mTimelineModel.setCreatedUser(mUser);
-                        mTimelineModel.setCreatedAt(System.currentTimeMillis());
                         mPresenter.createPost(mTimelineModel);
                         break;
 
@@ -115,6 +111,11 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
 
         LocalBroadcastManager manager = LocalBroadcastManager.getInstance(mActivity);
         manager.registerReceiver(mReceiver, FirebaseUploadService.getIntentFilter());
+    }
+
+    private void updateTimelineModel() {
+//        mTimelineModel.setCreatedUser(mUser);
+        mTimelineModel.setCreatedAt(System.currentTimeMillis());
     }
 
     private void handleProgress(MediaModel mediaModel) {
@@ -233,9 +234,12 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
 
     @Override
     public void onCreatePost() {
+        updateTimelineModel();
         if (mTimelineModel.getMediaModels() != null
                 && mTimelineModel.getMediaModels().size() != 0) {
             uploadFiles(mTimelineModel.getMediaModels());
+        } else {
+            mPresenter.createPost(mTimelineModel);
         }
     }
 
@@ -250,6 +254,16 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
                         .setAction(ACTION_UPLOAD_MULTI_FILE));
 
         mActivity.showUploadProgressView(mediaModels);
+    }
+
+    @Override
+    public void onCreatePostSuccess() {
+        mNavigator.finishActivity();
+    }
+
+    @Override
+    public void onCreatePostFailed(String msg) {
+        mNavigator.showToast(msg);
     }
 
     @Override
