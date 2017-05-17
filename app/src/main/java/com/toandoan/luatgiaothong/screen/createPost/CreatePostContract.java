@@ -4,6 +4,9 @@ import android.content.Intent;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BasePresenter;
 import com.toandoan.luatgiaothong.BaseViewModel;
+import com.toandoan.luatgiaothong.data.model.MediaModel;
+import com.toandoan.luatgiaothong.data.model.TimelineModel;
+import java.util.List;
 
 /**
  * This specifies the contract between the view and the presenter.
@@ -23,6 +26,10 @@ interface CreatePostContract {
         void onImagePickerClick();
 
         void onPlacePickerClick();
+
+        void onCreatePost();
+
+        void uploadFiles(List<MediaModel> mediaModels);
     }
 
     /**
@@ -30,5 +37,7 @@ interface CreatePostContract {
      */
     interface Presenter extends BasePresenter {
         void getUser();
+
+        void createPost(TimelineModel timelineModel);
     }
 }

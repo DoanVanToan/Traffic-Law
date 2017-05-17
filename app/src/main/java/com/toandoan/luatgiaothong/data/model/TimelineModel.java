@@ -16,9 +16,9 @@ public class TimelineModel {
     @SerializedName("created_user")
     private FirebaseUser mCreatedUser;
     @SerializedName("created_at")
-    private String mCreatedAt;
+    private long mCreatedAt;
     @SerializedName("modified_at")
-    private String mModifiedAt;
+    private long mModifiedAt;
     @SerializedName("location")
     private LocationModel mLocation;
     @SerializedName("medias")
@@ -56,19 +56,19 @@ public class TimelineModel {
         mCreatedUser = createdUser;
     }
 
-    public String getCreatedAt() {
+    public long getCreatedAt() {
         return mCreatedAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(long createdAt) {
         mCreatedAt = createdAt;
     }
 
-    public String getModifiedAt() {
+    public long getModifiedAt() {
         return mModifiedAt;
     }
 
-    public void setModifiedAt(String modifiedAt) {
+    public void setModifiedAt(long modifiedAt) {
         mModifiedAt = modifiedAt;
     }
 

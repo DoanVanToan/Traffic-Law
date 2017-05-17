@@ -48,4 +48,6 @@
     <string name="title_create_post">Create new post!</string>
     <string name="item_format">+ %s</string>
     <string name="item_create_at">At %s</string>
+    <string name="title_upload_percent">%s %</string>
+    <string name="msg_upload_error">Upload %s error!</string>
 </resources>

@@ -6,9 +6,11 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.toandoan.luatgiaothong.R;
+import com.toandoan.luatgiaothong.data.model.MediaModel;
 
 /**
  * Created by framgia on 11/05/2017.
@@ -21,7 +23,7 @@ public abstract class BaseStorageService extends Service {
     static final int PROGRESS_NOTIFICATION_ID = 0;
     static final int FINISHED_NOTIFICATION_ID = 1;
     private static final String TAG = "BaseStorageService";
-    private int mNumTasks = 0;
+    protected int mNumTasks = 0;
 
     public void taskStarted() {
         changeNumberOfTasks(1);
@@ -39,7 +41,13 @@ public abstract class BaseStorageService extends Service {
         if (mNumTasks <= 0) {
             Log.d(TAG, "stopping");
             stopSelf();
+            broadcastUploadFinnish();
         }
+    }
+
+    private boolean broadcastUploadFinnish() {
+        Intent broadcast = new Intent(FirebaseUploadService.UPLOAD_FINNISH_ALL);
+        return LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(broadcast);
     }
 
     /**

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.CardView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import com.toandoan.luatgiaothong.databinding.ItemPostFirstTypeBinding;
 import com.toandoan.luatgiaothong.databinding.ItemPostFourTypeBinding;
 import com.toandoan.luatgiaothong.databinding.ItemPostSecondTypeBinding;
 import com.toandoan.luatgiaothong.databinding.ItemPostThridTypeBinding;
+import com.toandoan.luatgiaothong.databinding.ItemUploadProgressBinding;
 import com.toandoan.luatgiaothong.utils.Constant;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 import java.lang.annotation.Retention;
@@ -43,6 +45,9 @@ public class CreatePostActivity extends BaseActivity {
     @CreateType
     private int mCreateType;
     private LinearLayout mLinearContent;
+    private LinearLayout mLinearProgress;
+    private View mBottomSheetView;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
     public static Intent getInstance(Context context, @CreateType int createType) {
         Intent intent = new Intent(context, CreatePostActivity.class);
@@ -69,6 +74,11 @@ public class CreatePostActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mLinearContent = binding.linearContent;
+        mLinearProgress = binding.linearProgress;
+        mBottomSheetView = binding.bottomSheet;
+        mBottomSheetBehavior = BottomSheetBehavior.from(mBottomSheetView);
+        mBottomSheetBehavior.setPeekHeight(0);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
     private void getData() {
@@ -77,12 +87,13 @@ public class CreatePostActivity extends BaseActivity {
         mCreateType = intent.getExtras().getInt(EXTRA_CREATE_TYPE);
     }
 
-    private void removeOldPostView(){
+    private void removeOldPostView() {
         View v = mLinearContent.getChildAt(mLinearContent.getChildCount() - 1);
         if (v instanceof CardView) {
             mLinearContent.removeView(v);
         }
     }
+
     public void addPostView(List<MediaModel> models) {
         removeOldPostView();
         switch (models.size()) {
@@ -138,6 +149,9 @@ public class CreatePostActivity extends BaseActivity {
             case android.R.id.home:
                 onBackPressed();
                 break;
+            case R.id.menu_save:
+                mViewModel.onCreatePost();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -146,6 +160,23 @@ public class CreatePostActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         mViewModel.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void showUploadProgressView(List<MediaModel> mediaModels) {
+        if (mediaModels == null || mediaModels.size() == 0) return;
+        mLinearProgress.removeAllViews();
+        for (MediaModel mediaModel : mediaModels) {
+            ItemUploadProgressBinding itemUpload =
+                    ItemUploadProgressBinding.inflate(getLayoutInflater());
+            itemUpload.setMediaModel(mediaModel);
+            mLinearProgress.addView(itemUpload.getRoot());
+        }
+        mBottomSheetBehavior.setPeekHeight(300);
+    }
+
+    public void hideBottomSheet() {
+        mBottomSheetBehavior.setPeekHeight(0);
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
     }
 
     @IntDef({ TEXT_CONTENT, VIDEO, IMAGE, LOCATION })
