@@ -10,6 +10,8 @@ import com.toandoan.luatgiaothong.BaseFragment;
 import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRemoteDataSource;
 import com.toandoan.luatgiaothong.data.source.remote.auth.AuthenicationRepository;
+import com.toandoan.luatgiaothong.data.source.remote.timeline.TimelineRemoteDataSource;
+import com.toandoan.luatgiaothong.data.source.remote.timeline.TimelineRepository;
 import com.toandoan.luatgiaothong.databinding.FragmentTimelineBinding;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 
@@ -31,7 +33,11 @@ public class TimelineFragment extends BaseFragment {
 
         AuthenicationRepository repository =
                 new AuthenicationRepository(new AuthenicationRemoteDataSource());
-        TimelineContract.Presenter presenter = new TimelinePresenter(mViewModel, repository);
+        TimelineRepository timelineRepository =
+                new TimelineRepository(new TimelineRemoteDataSource());
+        TimelineContract.Presenter presenter =
+                new TimelinePresenter(mViewModel, repository, timelineRepository);
+
         mViewModel.setPresenter(presenter);
     }
 

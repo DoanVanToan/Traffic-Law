@@ -17,4 +17,8 @@ public class TimelineRepository {
     public void createNewPost(TimelineModel timelineModel, DataCallback callback) {
         mDataSource.createNewPost(timelineModel, callback);
     }
+
+    public void getTimeline(TimelineRemoteDataSource.TimelineCallback callback){
+        mDataSource.getTimeline(callback);
+    }
 }

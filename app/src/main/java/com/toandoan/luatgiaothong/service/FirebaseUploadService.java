@@ -18,6 +18,7 @@ import com.toandoan.luatgiaothong.data.model.MediaModel;
 import com.toandoan.luatgiaothong.screen.main.MainActivity;
 import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by framgia on 11/05/2017.
@@ -93,8 +94,8 @@ public class FirebaseUploadService extends BaseStorageService {
         taskStarted();
         showProgressNotification(PROGRESS_UPLOAD, 0, 0);
 
-        final StorageReference photoRef =
-                mStorageRef.child(folder).child(fileUri.getLastPathSegment());
+        final StorageReference photoRef = mStorageRef.child(folder)
+                .child(UUID.randomUUID().toString() + fileUri.getLastPathSegment());
 
         photoRef.putFile(fileUri).
                 addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -141,8 +142,7 @@ public class FirebaseUploadService extends BaseStorageService {
 
     private boolean broadcastUploadFinished(MediaModel mediaModel, @Nullable Uri downloadUrl) {
         if (downloadUrl != null) {
-            Intent broadcast = new Intent(UPLOAD_COMPLETE)
-                    .putExtra(EXTRA_MEDIA_MODEL, mediaModel)
+            Intent broadcast = new Intent(UPLOAD_COMPLETE).putExtra(EXTRA_MEDIA_MODEL, mediaModel)
                     .putExtra(EXTRA_URI, downloadUrl);
             return LocalBroadcastManager.getInstance(getApplicationContext())
                     .sendBroadcast(broadcast);
