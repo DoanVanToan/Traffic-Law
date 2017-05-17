@@ -6,9 +6,11 @@ import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
+import com.toandoan.luatgiaothong.data.model.TimelineModel;
 import com.toandoan.luatgiaothong.data.model.UserModel;
 import com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
+import java.util.ArrayList;
 
 /**
  * Exposes the data to be used in the Timeline screen.
@@ -21,10 +23,12 @@ public class TimelineViewModel extends BaseObservable implements TimelineContrac
     private Context mContext;
     private ObservableField<UserModel> mUser = new ObservableField<>();
     private String mUserUrl;
+    private TimelineAdapter mAdapter;
 
     public TimelineViewModel(Context context, Navigator navigator) {
         mContext = context;
         mNavigator = navigator;
+        mAdapter = new TimelineAdapter(new ArrayList<TimelineModel>());
     }
 
     @Override
@@ -53,6 +57,11 @@ public class TimelineViewModel extends BaseObservable implements TimelineContrac
         mNavigator.startActivity(CreatePostActivity.getInstance(mContext, createType));
     }
 
+    @Override
+    public void onChildAdded(TimelineModel timeline) {
+        mAdapter.updateData(timeline);
+    }
+
     public ObservableField<UserModel> getUser() {
         return mUser;
     }
@@ -69,5 +78,13 @@ public class TimelineViewModel extends BaseObservable implements TimelineContrac
     public void setUserUrl(String userUrl) {
         mUserUrl = userUrl;
         notifyPropertyChanged(BR.userUrl);
+    }
+
+    public TimelineAdapter getAdapter() {
+        return mAdapter;
+    }
+
+    public void setAdapter(TimelineAdapter adapter) {
+        mAdapter = adapter;
     }
 }

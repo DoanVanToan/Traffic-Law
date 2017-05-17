@@ -28,4 +28,6 @@
     <dimen name="dp_300">300dp</dimen>
     <dimen name="sp_15">15sp</dimen>
     <dimen name="dp_15">15dp</dimen>
+    <dimen name="sp_13">13sp</dimen>
+    <dimen name="sp_14">14sp</dimen>
 </resources>

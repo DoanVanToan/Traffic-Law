@@ -60,6 +60,9 @@ public class UserModel implements Parcelable {
         mPhotoUrl = in.readString();
     }
 
+    public UserModel() {
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(mUserName);
