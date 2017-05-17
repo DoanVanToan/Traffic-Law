@@ -21,6 +21,8 @@ interface CreatePostContract {
         void onGetCurrentUserFailed(String msg);
 
         void onImagePickerClick();
+
+        void onPlacePickerClick();
     }
 
     /**
