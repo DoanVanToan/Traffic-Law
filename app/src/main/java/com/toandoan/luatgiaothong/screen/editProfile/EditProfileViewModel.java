@@ -8,7 +8,6 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
-
 import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.R;
@@ -112,7 +111,11 @@ public class EditProfileViewModel extends BaseObservable implements EditProfileC
 
     @Override
     public void onSaveUserClick() {
-        uploadFromUri();
+        if (mPhotoUri != null) {
+            uploadFromUri();
+        } else {
+            mPresenter.saveUser(mUserName, mPhotoUri);
+        }
     }
 
     @Override

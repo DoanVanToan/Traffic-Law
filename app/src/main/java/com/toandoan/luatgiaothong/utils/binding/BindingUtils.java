@@ -11,12 +11,16 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.toandoan.luatgiaothong.R;
 import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -76,29 +80,13 @@ public final class BindingUtils {
     @BindingAdapter("bind:imageUri")
     public static void loadImage(final ImageView imageView, Uri uri) {
         if (uri == null) return;
-        String path = getPathFromUri(imageView.getContext(), uri);
         Glide.with(imageView.getContext())
-                .load(new File(path))
+                .load(uri.toString())
                 .asBitmap()
                 .placeholder(R.mipmap.ic_launcher)
                 .into(imageView);
     }
 
-    public static String getPathFromUri(Context context, Uri uri) {
-        if (context == null || uri == null) return null;
-        String result = null;
-        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
-        if (cursor == null) {
-            result = uri.getPath();
-        } else {
-            if (cursor.moveToFirst()) {
-                int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-                result = cursor.getString(idx);
-                cursor.close();
-            }
-        }
-        return result;
-    }
 
     @BindingAdapter({ "spinnerAdapter" })
     public static void setAdapterForSpinner(AppCompatSpinner spinner,
@@ -115,5 +103,12 @@ public final class BindingUtils {
     @BindingAdapter("errorText")
     public static void setErrorText(EditText editText, String text) {
         editText.setError(text);
+    }
+
+    @BindingAdapter("bind:milisecond")
+    public static void setDate(TextView view, long milisecond) {
+        String niceDateStr = String.valueOf(DateUtils.getRelativeTimeSpanString(milisecond,
+                Calendar.getInstance().getTimeInMillis(), DateUtils.MINUTE_IN_MILLIS));
+        view.setText(niceDateStr);
     }
 }
