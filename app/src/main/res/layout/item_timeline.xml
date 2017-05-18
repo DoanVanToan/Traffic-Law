@@ -54,7 +54,7 @@
                     android:lines="1"
                     android:paddingLeft="@dimen/dp_5"
                     android:paddingTop="@dimen/dp_5"
-                    android:text="14 phút trước ádasd"
+                    bind:milisecond="@{timelineModel.createdAt}"
                     android:textColor="@color/color_grey_700"
                     android:textSize="@dimen/sp_13"
                     />
