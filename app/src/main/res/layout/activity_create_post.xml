@@ -75,6 +75,15 @@
                             <ImageView
                                 android:layout_width="@dimen/dp_30"
                                 android:layout_height="@dimen/dp_30"
+                                android:layout_marginLeft="@dimen/dp_10"
+                                android:onClick="@{() -> viewModel.onStartRecordClicked()}"
+                                android:padding="@dimen/dp_5"
+                                app:srcCompat="@drawable/ic_microphone"
+                                />
+
+                            <ImageView
+                                android:layout_width="@dimen/dp_30"
+                                android:layout_height="@dimen/dp_30"
                                 android:padding="@dimen/dp_5"
                                 app:srcCompat="@drawable/ic_video"
                                 />
@@ -125,7 +134,6 @@
 
                 <EditText
                     android:id="@+id/edit_content"
-                    android:text="@={viewModel.timelineModel.content}"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:focusable="true"
@@ -133,9 +141,24 @@
                     android:gravity="top"
                     android:hint="@string/title_timeline_header"
                     android:isScrollContainer="false"
+                    android:text="@={viewModel.timelineModel.content}"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
                     />
+
+                <LinearLayout
+                    android:id="@+id/linear_images"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+                <LinearLayout
+                    android:id="@+id/linear_records"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
 
             </LinearLayout>
 

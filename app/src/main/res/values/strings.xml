@@ -50,4 +50,9 @@
     <string name="item_create_at">At %s</string>
     <string name="title_upload_percent">%s %</string>
     <string name="msg_upload_error">Upload %s error!</string>
+    <string name="title_record">Recording...</string>
+    <string name="aar_save">Save</string>
+    <string name="aar_paused">Paused</string>
+    <string name="aar_recording">Recording</string>
+    <string name="aar_playing">Playing</string>
 </resources>

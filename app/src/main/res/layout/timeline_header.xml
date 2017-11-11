@@ -4,7 +4,7 @@
     xmlns:bind="http://schemas.android.com/tools"
     >
     <data>
-        <import type="com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.CreateType"/>
+        <import type="com.toandoan.luatgiaothong.data.model.PostType"/>
         <variable
             name="viewModel"
             type="com.toandoan.luatgiaothong.screen.timeline.TimelineViewModel"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:gravity="center"
-            android:onClick="@{() ->viewModel.onCreateNewPostClick(CreateType.TEXT_CONTENT)}"
+            android:onClick="@{() ->viewModel.onCreateNewPostClick(PostType.TEXT_CONTENT)}"
             android:orientation="horizontal"
             android:padding="@dimen/dp_10"
             >
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{() ->viewModel.onCreateNewPostClick(CreateType.VIDEO)}"
+                android:onClick="@{() ->viewModel.onCreateNewPostClick(PostType.VIDEO)}"
                 android:padding="@dimen/dp_10"
                 >
                 <ImageView
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{() ->viewModel.onCreateNewPostClick(CreateType.IMAGE)}"
+                android:onClick="@{() ->viewModel.onCreateNewPostClick(PostType.IMAGE)}"
                 android:padding="@dimen/dp_10"
                 >
                 <ImageView
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:onClick="@{() ->viewModel.onCreateNewPostClick(CreateType.LOCATION)}"
+                android:onClick="@{() ->viewModel.onCreateNewPostClick(PostType.LOCATION)}"
                 android:padding="@dimen/dp_10"
                 >
                 <ImageView

@@ -35,6 +35,8 @@ interface CreatePostContract {
         void onCreatePostSuccess();
 
         void onCreatePostFailed(String msg);
+
+        void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults);
     }
 
     /**

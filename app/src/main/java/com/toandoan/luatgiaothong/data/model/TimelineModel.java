@@ -23,8 +23,10 @@ public class TimelineModel extends BaseObservable {
     private long mModifiedAt;
     @SerializedName("location")
     private LocationModel mLocation;
-    @SerializedName("media")
-    private List<MediaModel> mMediaModels;
+    @SerializedName("images")
+    private List<MediaModel> mImages;
+    @SerializedName("records")
+    private List<MediaModel> mRecords;
     @SerializedName("comments")
     private List<Comment> mComments;
     @SerializedName("likes")
@@ -95,13 +97,13 @@ public class TimelineModel extends BaseObservable {
     }
 
     @Bindable
-    public List<MediaModel> getMediaModels() {
-        return mMediaModels;
+    public List<MediaModel> getImages() {
+        return mImages;
     }
 
-    public void setMediaModels(List<MediaModel> mediaModels) {
-        mMediaModels = mediaModels;
-        notifyPropertyChanged(BR.mediaModels);
+    public void setImages(List<MediaModel> images) {
+        mImages = images;
+        notifyPropertyChanged(BR.images);
     }
 
     @Bindable
@@ -145,21 +147,31 @@ public class TimelineModel extends BaseObservable {
     }
 
     @Bindable
+    public List<MediaModel> getRecords() {
+        return mRecords;
+    }
+
+    public void setRecords(List<MediaModel> records) {
+        mRecords = records;
+        notifyPropertyChanged(BR.records);
+    }
+
+    @Bindable
     public int getViewType() {
-        return getMediaModels() != null ? getMediaModels().size() : 0;
+        return getImages() != null ? getImages().size() : 0;
     }
 
     @Override
     public String toString() {
         return "TimelineModel{"
-                + "mId='"
-                + mId
-                + '\''
-                + ", mContent='"
-                + mContent
-                + '\''
-                + ", mCreatedUser="
-                + mCreatedUser
-                + '}';
+            + "mId='"
+            + mId
+            + '\''
+            + ", mContent='"
+            + mContent
+            + '\''
+            + ", mCreatedUser="
+            + mCreatedUser
+            + '}';
     }
 }

@@ -26,8 +26,16 @@ android {
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
+  dexOptions {
+    jumboMode = true
+  }
 }
 
+repositories {
+  maven {
+    url "https://jitpack.io"
+  }
+}
 
 dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -46,6 +54,9 @@ dependencies {
 
   compile dependencies.glide
   compile dependencies.circleImage
+
+  compile dependencies.omRecorder
+  compile dependencies.audiovisualization
 
   compile dependencies.googleAuth
   compile dependencies.googlePlace

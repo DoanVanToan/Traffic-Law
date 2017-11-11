@@ -84,25 +84,25 @@
 
         <include
             layout="@layout/item_post_first_type"
-            bind:listData="@{timelineModel.mediaModels}"
+            bind:listData="@{timelineModel.images}"
             android:visibility="@{timelineModel.viewType == Timeline.ONE_IMAGE? View.VISIBLE: View.GONE}"
             />
 
         <include
             layout="@layout/item_post_second_type"
-            bind:listData="@{timelineModel.mediaModels}"
+            bind:listData="@{timelineModel.images}"
             android:visibility="@{timelineModel.viewType == Timeline.TWO_IMAGE? View.VISIBLE: View.GONE}"
             />
 
         <include
             layout="@layout/item_post_thrid_type"
-            bind:listData="@{timelineModel.mediaModels}"
+            bind:listData="@{timelineModel.images}"
             android:visibility="@{timelineModel.viewType == Timeline.THREE_IMAGE? View.VISIBLE: View.GONE}"
             />
 
         <include
             layout="@layout/item_post_four_type"
-            bind:listData="@{timelineModel.mediaModels}"
+            bind:listData="@{timelineModel.images}"
             android:visibility="@{timelineModel.viewType >= Timeline.FOUR_IMAGE? View.VISIBLE: View.GONE}"
             />
 
