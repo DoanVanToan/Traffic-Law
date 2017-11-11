@@ -1,12 +1,16 @@
 package com.toandoan.luatgiaothong.screen.createPost;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.Parcelable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import com.darsh.multipleimageselect.activities.AlbumSelectActivity;
 import com.darsh.multipleimageselect.helpers.Constants;
@@ -15,22 +19,29 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
 import com.toandoan.luatgiaothong.R;
 import com.toandoan.luatgiaothong.data.model.LocationModel;
 import com.toandoan.luatgiaothong.data.model.MediaModel;
+import com.toandoan.luatgiaothong.data.model.PostType;
 import com.toandoan.luatgiaothong.data.model.TimelineModel;
 import com.toandoan.luatgiaothong.data.model.UserModel;
+import com.toandoan.luatgiaothong.record.AndroidAudioRecorder;
+import com.toandoan.luatgiaothong.record.Util;
+import com.toandoan.luatgiaothong.record.model.AudioChannel;
+import com.toandoan.luatgiaothong.record.model.AudioSampleRate;
+import com.toandoan.luatgiaothong.record.model.AudioSource;
 import com.toandoan.luatgiaothong.service.FirebaseUploadService;
+import com.toandoan.luatgiaothong.utils.Utils;
 import com.toandoan.luatgiaothong.utils.navigator.Navigator;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
-import static com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.CreateType.IMAGE;
-import static com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.CreateType.LOCATION;
-import static com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity.CreateType.VIDEO;
+import static com.toandoan.luatgiaothong.data.model.PostType.IMAGE;
+import static com.toandoan.luatgiaothong.data.model.PostType.LOCATION;
+import static com.toandoan.luatgiaothong.data.model.PostType.VIDEO;
 import static com.toandoan.luatgiaothong.service.BaseStorageService.POST_FOLDER;
 import static com.toandoan.luatgiaothong.service.FirebaseUploadService.ACTION_UPLOAD_MULTI_FILE;
 import static com.toandoan.luatgiaothong.service.FirebaseUploadService.EXTRA_FILES;
@@ -45,8 +56,14 @@ import static com.toandoan.luatgiaothong.service.FirebaseUploadService.EXTRA_URI
 public class CreatePostViewModel extends BaseObservable implements CreatePostContract.ViewModel {
     public static final int PLACE_PICKER_REQUEST = 1;
     public static final int SELECT_IMAGE_REQUEST = 2;
+    private static final int REQUEST_RECORD_AUDIO = 3;
+
     public static final int LIMIT_IMAGES = 10;
-    private static final String TAG = "CreatePostViewModel";
+
+    private final static String[] PERMISSION = new String[] {
+        Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    private static final String TAG = "RecordingViewModel";
 
     private CreatePostContract.Presenter mPresenter;
     private UserModel mUser;
@@ -54,7 +71,7 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     private String mUserName;
     private String mAddress;
 
-    @CreatePostActivity.CreateType
+    @PostType
     private int mCreateType;
     private CreatePostActivity mActivity;
     private Navigator mNavigator;
@@ -64,7 +81,7 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     private boolean mIsUploading;
 
     public CreatePostViewModel(CreatePostActivity activity, Navigator navigator,
-            @CreatePostActivity.CreateType int createType) {
+        @PostType int createType) {
         mActivity = activity;
         mNavigator = navigator;
         mCreateType = createType;
@@ -80,8 +97,8 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
             public void onReceive(Context context, Intent intent) {
                 switch (intent.getAction()) {
                     case FirebaseUploadService.UPLOAD_PROGRESS:
-                        int percent = intent.getExtras()
-                                .getInt(FirebaseUploadService.EXTRA_UPLOADED_PERCENT);
+                        int percent =
+                            intent.getExtras().getInt(FirebaseUploadService.EXTRA_UPLOADED_PERCENT);
                         MediaModel mediaModel = intent.getExtras().getParcelable(EXTRA_MEDIA_MODEL);
                         mediaModel.setUploadPercent(percent);
                         handleProgress(mediaModel);
@@ -103,8 +120,8 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
                     case FirebaseUploadService.UPLOAD_ERROR:
                         mediaModel = intent.getExtras().getParcelable(EXTRA_MEDIA_MODEL);
                         mNavigator.showToast(
-                                String.format(mActivity.getString(R.string.msg_upload_error),
-                                        mediaModel.getName()));
+                            String.format(mActivity.getString(R.string.msg_upload_error),
+                                mediaModel.getName()));
                         break;
                 }
             }
@@ -120,7 +137,7 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     }
 
     private void handleProgress(MediaModel mediaModel) {
-        for (MediaModel model : mTimelineModel.getMediaModels()) {
+        for (MediaModel model : mTimelineModel.getImages()) {
             if (model.getId().equals(mediaModel.getId())) {
                 model.setUploadPercent(mediaModel.getUploadPercent());
                 return;
@@ -129,7 +146,7 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     }
 
     private void handleFinnish(MediaModel mediaModel) {
-        for (MediaModel model : mTimelineModel.getMediaModels()) {
+        for (MediaModel model : mTimelineModel.getImages()) {
             if (model.getId().equals(mediaModel.getId())) {
                 model.setUrl(mediaModel.getUrl());
                 return;
@@ -184,16 +201,37 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
                 break;
             case SELECT_IMAGE_REQUEST:
                 List<Image> images =
-                        data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
+                    data.getParcelableArrayListExtra(Constants.INTENT_EXTRA_IMAGES);
                 if (images == null || images.size() == 0) break;
-                addPostView(images);
+                addPostImage(images);
+                break;
+            case REQUEST_RECORD_AUDIO:
+                String filePath = Util.getResultFilePath(data);
+                String fileName = Util.getResultFileName(data);
+                MediaModel record = new MediaModel();
+                record.setId(UUID.randomUUID().toString());
+                record.setUrl(filePath);
+                record.setName(fileName);
+
+                addPostRecords(record);
                 break;
             default:
                 break;
         }
     }
 
-    private void addPostView(List<Image> images) {
+    private void addPostRecords(MediaModel record) {
+        if (record == null) {
+            return;
+        }
+        if (mTimelineModel.getRecords() == null) {
+            mTimelineModel.setRecords(new ArrayList<MediaModel>());
+        }
+        mTimelineModel.getRecords().add(record);
+        mActivity.addPostRecord(mTimelineModel.getRecords());
+    }
+
+    private void addPostImage(List<Image> images) {
         if (images != null) {
             for (Image image : images) {
                 MediaModel mediaModel = new MediaModel();
@@ -202,13 +240,17 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
                 mediaModel.setUrl(image.path);
                 mediaModel.setName(image.name);
 
-                if (mTimelineModel.getMediaModels() == null) {
-                    mTimelineModel.setMediaModels(new ArrayList<MediaModel>());
+                if (mTimelineModel.getImages() == null) {
+                    mTimelineModel.setImages(new ArrayList<MediaModel>());
                 }
-                mTimelineModel.getMediaModels().add(mediaModel);
+                mTimelineModel.getImages().add(mediaModel);
             }
         }
-        mActivity.addPostView(mTimelineModel.getMediaModels());
+        mActivity.addImagePost(mTimelineModel.getImages());
+    }
+
+    private void addPostRecord(List<MediaModel> records) {
+        mActivity.addPostRecord(records);
     }
 
     @Override
@@ -236,9 +278,8 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     @Override
     public void onCreatePost() {
         updateTimelineModel();
-        if (mTimelineModel.getMediaModels() != null
-                && mTimelineModel.getMediaModels().size() != 0) {
-            uploadFiles(mTimelineModel.getMediaModels());
+        if (mTimelineModel.getImages() != null && mTimelineModel.getImages().size() != 0) {
+            uploadFiles(mTimelineModel.getImages());
         } else {
             mPresenter.createPost(mTimelineModel);
         }
@@ -249,12 +290,44 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
         if (mIsUploading) return;
         mIsUploading = true;
         mActivity.startService(
-                new Intent(mActivity, FirebaseUploadService.class).putParcelableArrayListExtra(
-                        EXTRA_FILES, (ArrayList<? extends Parcelable>) mediaModels)
-                        .putExtra(EXTRA_FOLDER, POST_FOLDER)
-                        .setAction(ACTION_UPLOAD_MULTI_FILE));
+            new Intent(mActivity, FirebaseUploadService.class).putParcelableArrayListExtra(
+                EXTRA_FILES, (ArrayList<? extends Parcelable>) mediaModels)
+                .putExtra(EXTRA_FOLDER, POST_FOLDER)
+                .setAction(ACTION_UPLOAD_MULTI_FILE));
 
         mActivity.showUploadProgressView(mediaModels);
+    }
+
+    public void onStartRecordClicked() {
+        if (Utils.isAllowPermision(mActivity, PERMISSION)) {
+            recordAudio();
+        }
+    }
+
+    public String getFileName() {
+        String fileName = String.valueOf(System.currentTimeMillis()) + ".wav";
+        return fileName;
+    }
+
+    public void recordAudio() {
+        String fileName = getFileName();
+        String filePath = Environment.getExternalStorageDirectory().getPath() + "/" + fileName;
+        AndroidAudioRecorder.with(mActivity)
+            // Required
+            .setFileName(fileName)
+            .setFilePath(filePath)
+            .setColor(ContextCompat.getColor(mActivity, R.color.color_orange))
+            .setRequestCode(REQUEST_RECORD_AUDIO)
+
+            // Optional
+            .setSource(AudioSource.MIC)
+            .setChannel(AudioChannel.STEREO)
+            .setSampleRate(AudioSampleRate.HZ_48000)
+            .setAutoStart(false)
+            .setKeepDisplayOn(true)
+
+            // Start recording
+            .record();
     }
 
     @Override
@@ -265,6 +338,23 @@ public class CreatePostViewModel extends BaseObservable implements CreatePostCon
     @Override
     public void onCreatePostFailed(String msg) {
         mNavigator.showToast(msg);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+        int[] grantResults) {
+        if (requestCode == REQUEST_RECORD_AUDIO && isEnablePermision(permissions, grantResults)) {
+            recordAudio();
+        }
+    }
+
+    private boolean isEnablePermision(String[] permissions, int[] grantResults) {
+        for (int i = 0; i < permissions.length; i++) {
+            if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

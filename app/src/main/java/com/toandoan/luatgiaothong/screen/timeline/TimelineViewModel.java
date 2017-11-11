@@ -4,8 +4,8 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableField;
-import com.google.firebase.auth.FirebaseUser;
 import com.toandoan.luatgiaothong.BR;
+import com.toandoan.luatgiaothong.data.model.PostType;
 import com.toandoan.luatgiaothong.data.model.TimelineModel;
 import com.toandoan.luatgiaothong.data.model.UserModel;
 import com.toandoan.luatgiaothong.screen.createPost.CreatePostActivity;
@@ -53,7 +53,7 @@ public class TimelineViewModel extends BaseObservable implements TimelineContrac
     }
 
     @Override
-    public void onCreateNewPostClick(@CreatePostActivity.CreateType int createType) {
+    public void onCreateNewPostClick(@PostType int createType) {
         mNavigator.startActivity(CreatePostActivity.getInstance(mContext, createType));
     }
 
